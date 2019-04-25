@@ -24,11 +24,12 @@ namespace CoderGirl_MVCMovies.Controllers
                 <button type='submit'>Rate it</button>
             </form>";
 
-        /// TODO: Create a view Index. This view should list a table of all saved movie names with associated average rating
+        /// TODO: Create a view Index. This view should list a table of all saved movie names with associated average rating   
         /// TODO: Be sure to include headers for Movie and Rating
         /// TODO: Each tr with a movie rating should have an id attribute equal to the id of the movie rating
         public IActionResult Index()
         {
+            ViewBag.movies = MovieController.movies;
             return View();
         }
 
@@ -37,7 +38,8 @@ namespace CoderGirl_MVCMovies.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            return Content(htmlForm, "text/html");
+            ViewBag.movies = MovieController.movies;
+            return View();
         }
 
         // TODO: Save the movie/rating in the MovieRatingRepository before redirecting to the Details page

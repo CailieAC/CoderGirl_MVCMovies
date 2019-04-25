@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewData["Title"] = "Movies";
+}
+
+<h1>Movies</h1>
+
+<p><a asp-controller="Movie" asp-action="Create">Add New Movie</a></p>
+
+<table>
+    <tr>
+        <th>Movie Name</th>
+        <th>Rating</th>
+    </tr>
+    @foreach (var movie in ViewBag.movies)
+    {
+        <tr>
+            <td id="@movie.Key">@movie.Value</td>
+        </tr>
+    }
+
+</table>
+
