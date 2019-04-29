@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewData["Title"] = "Average Movie Ratings";
+}
+
+<h1>Average Movie Ratings</h1>
+
+<table>
+    <tr>
+        <th>Movie Name</th>
+        <th>Average Rating</th>
+        @foreach (var movie in ViewBag.movies)
+        {
+            <td>@movie.name</td>
+            <td>@movie.averageRating</td>
+        }
+    </tr>
+</table>
+

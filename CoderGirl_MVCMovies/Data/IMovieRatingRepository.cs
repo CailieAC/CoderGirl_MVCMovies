@@ -8,6 +8,8 @@ namespace CoderGirl_MVCMovies.Data
     // TODO: Implement this interface
     public interface IMovieRatingRepository
     {        
+        // Start at id of 1. 
+        // Use probably dictionary? probably not list. Maybe create a movie class
         /// <summary>
         /// Given a movieName and rating, saves the rating and returns a unique id > 0.
         /// If the movie name and/or rating are null or empty, nothing should be saved and it should return 0
@@ -46,5 +48,8 @@ namespace CoderGirl_MVCMovies.Data
         /// </summary>
         /// <returns></returns>
         List<int> GetIds();
+
+        //TODO: Bonus mission - create a delete link. Shouldn't change IDs of other items,
+        // should refresh the view with the item deleted
     }
 }
