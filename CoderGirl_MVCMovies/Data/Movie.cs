@@ -9,6 +9,6 @@ namespace CoderGirl_MVCMovies.Data
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public List<int> Rating { get; set; }
+        public int Rating { get; set; }
     }
 }

@@ -13,36 +13,23 @@ namespace CoderGirl_MVCMovies.Data
         {
             // Given a movie name, returns the average rating of the movie.
             // If there are no ratings for the movie, returns an empty list.
-            bool inList = false;
-            
-            foreach (Movie movie in Movies)
-            {
-                if (movie.Name == movieName)
-                {
-                    inList = true;
-
-                }
-            }
-
-            if (inList == false)
-            {
-                decimal emptyList = 0;
-                return emptyList;
-            }
-
             decimal average = 0;
-            decimal total = 0;
-            decimal count = 0;
+            double total = 0;
+            double count = 0;
             foreach (Movie movie in Movies)
             {
-                foreach (var rating in movie.Rating)
+                if(movie.Name == movieName)
                 {
-                    total += rating;
+                    total += movie.Rating;
                     count++;
-                }
+                }  
             }
-            average = total / count;
 
+            if (total > 0)
+            {
+                average = (decimal)(total / count);
+            }
+                
             return average;
         }
 
@@ -58,7 +45,7 @@ namespace CoderGirl_MVCMovies.Data
 
         public int GetRatingById(int id)
         {
-            return Movies[id - 1].Rating[id];
+            return Movies[id - 1].Rating;
         }
 
         public int SaveRating(string movieName, int rating)
@@ -71,7 +58,7 @@ namespace CoderGirl_MVCMovies.Data
             }
             Movie movie = new Movie();
             movie.Name = movieName;
-            movie.Rating.Add(rating);
+            movie.Rating = rating;
             movie.Id = Movies.Count + 1;
             Movies.Add(movie);
             return movie.Id;
