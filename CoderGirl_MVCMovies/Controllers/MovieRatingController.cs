@@ -48,9 +48,7 @@ namespace CoderGirl_MVCMovies.Controllers
             return View();
         }
 
-        // TODO: Create a view MovieRating/Create and put the htmlForm there. Remember that html in a view should not be a string.
-        // TODO: Change the input tag for movie name to be a drop down which has a list of movies from the movie repository
-        // TODO: Change this method to return that view. 
+        
         [HttpGet]
         public IActionResult Create()
         {
