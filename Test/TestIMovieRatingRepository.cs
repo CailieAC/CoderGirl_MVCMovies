@@ -59,9 +59,9 @@ namespace Test
         public void TestGetAverageRatingByMovieName(string movieName, int[] ratings)
         {
             Array.ForEach(ratings, rating => repository.SaveRating(movieName, rating));
-            var expected = (decimal)ratings.Average();
+            var expected = Math.Round(ratings.Average(), 3);
 
-            var result = repository.GetAverageRatingByMovieName(movieName);
+            var result = Math.Round(repository.GetAverageRatingByMovieName(movieName), 3);
 
             Assert.Equal(expected, result);
         }

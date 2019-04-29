@@ -21,7 +21,7 @@ namespace CoderGirl_MVCMovies.Data
 
         /// <summary>
         /// Given an id, will return the associated rating 
-        /// If the id does not exist, returns null
+        /// If the id does not exist, returns 0
         /// </summary>
         /// <param name=""></param>
         /// <returns></returns>
@@ -41,7 +41,7 @@ namespace CoderGirl_MVCMovies.Data
         /// </summary>
         /// <param name="movieName"></param>
         /// <returns></returns>
-        decimal GetAverageRatingByMovieName(string movieName);
+        double GetAverageRatingByMovieName(string movieName);
 
         /// <summary>
         /// Returns a list of all the ids of saved movie ratings
