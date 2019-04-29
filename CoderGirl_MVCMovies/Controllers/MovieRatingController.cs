@@ -24,6 +24,12 @@ namespace CoderGirl_MVCMovies.Controllers
                 <button type='submit'>Rate it</button>
             </form>";
 
+        private void PopulateMovieList()
+        {
+            movies.Add(new Movie { Name = "The Matrix", Rating = 5, Id = 1 });
+
+        }
+
         /// TODO: Create a view Index. This view should list a table of all saved movie names with associated average rating   
         /// TODO: Be sure to include headers for Movie and Rating
         /// TODO: Each tr with a movie rating should have an id attribute equal to the id of the movie rating

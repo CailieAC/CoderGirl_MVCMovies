@@ -13,6 +13,7 @@ namespace CoderGirl_MVCMovies.Data
         {
             // Given a movie name, returns the average rating of the movie.
             // If there are no ratings for the movie, returns an empty list.
+            /*
             decimal average = 0;
             double total = 0;
             double count = 0;
@@ -31,6 +32,7 @@ namespace CoderGirl_MVCMovies.Data
             }
 
             //return average;
+            */
             return Movies.Where(m => m.Name == movieName).Average(m => m.Rating);
         }
 
