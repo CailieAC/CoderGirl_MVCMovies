@@ -54,7 +54,7 @@ namespace CoderGirl_MVCMovies.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            ViewBag.Movies = MovieController.movies;
+            ViewBag.Movies = movies;
             return View();
         }
 
