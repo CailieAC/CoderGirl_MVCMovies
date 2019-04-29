@@ -7,25 +7,58 @@ namespace CoderGirl_MVCMovies.Data
 {
     public class MovieRatingRepository : IMovieRatingRepository
     {
+        public static List<Movie> Movies = new List<Movie>();
+
         public decimal GetAverageRatingByMovieName(string movieName)
         {
-            throw new NotImplementedException();
+            // Given a movie name, returns the average rating of the movie.
+            // If there are no ratings for the movie, returns an empty list.
+            bool inList = false;
+            
+            foreach (Movie movie in Movies)
+            {
+                if (movie.Name == movieName)
+                {
+                    inList = true;
+
+                }
+            }
+
+            if (inList == false)
+            {
+                decimal emptyList = 0;
+                return emptyList;
+            }
+
+            decimal average = 0;
+            decimal total = 0;
+            decimal count = 0;
+            foreach (Movie movie in Movies)
+            {
+                foreach (var rating in movie.Rating)
+                {
+                    total += rating;
+                    count++;
+                }
+            }
+            average = total / count;
+
+            return average;
         }
 
         public List<int> GetIds()
         {
-            throw new NotImplementedException();
+            return Movies.Select(p => p.Id).ToList();
         }
 
         public string GetMovieNameById(int id)
         {
-            throw new NotImplementedException();
+            return Movies[id - 1].Name;
         }
 
         public int GetRatingById(int id)
         {
-
-            throw new NotImplementedException();
+            return Movies[id - 1].Rating[id];
         }
 
         public int SaveRating(string movieName, int rating)
@@ -38,12 +71,10 @@ namespace CoderGirl_MVCMovies.Data
             }
             Movie movie = new Movie();
             movie.Name = movieName;
-            movie.Rating = rating;
+            movie.Rating.Add(rating);
             movie.Id = Movies.Count + 1;
+            Movies.Add(movie);
             return movie.Id;
-        }
-
-        public static List<Movie> Movies = new List<Movie>();
-            
+        }    
     }
 }

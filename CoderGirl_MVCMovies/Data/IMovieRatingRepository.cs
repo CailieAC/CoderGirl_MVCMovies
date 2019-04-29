@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace CoderGirl_MVCMovies.Data
 {
-    // TODO: Implement this interface
+    // Implemented this interface to MovieRating Repository
     public interface IMovieRatingRepository
     {        
         // Start at id of 1. 
