@@ -10,6 +10,7 @@ namespace CoderGirl_MVCMovies.Controllers
     public class MovieRatingController : Controller
     {
         private IMovieRatingRepository repository = RepositoryFactory.GetMovieRatingRepository();
+        public static List<Movie> movies = new List<Movie>();
 
         private string htmlForm = @"
             <form method='post'>
@@ -26,16 +27,24 @@ namespace CoderGirl_MVCMovies.Controllers
 
         private void PopulateMovieList()
         {
-            movies.Add(new Movie { Name = "The Matrix", Rating = 5, Id = 1 });
-
+            movies.Add(
+                new Movie { Name = "The Matrix", Rating = 5, Id = 1 }
+            );
+            movies.Add(
+                new Movie { Name = "The Matrix Reloaded", Rating = 3, Id = 2 }
+            );
+            movies.Add(
+                new Movie { Name = "The Matrix The really bad one", Rating = 1, Id = 3 }
+            );
         }
 
-        /// TODO: Create a view Index. This view should list a table of all saved movie names with associated average rating   
+        /// TODO: Create a view Index. This view should list a table of all saved movie names with associated average rating
         /// TODO: Be sure to include headers for Movie and Rating
         /// TODO: Each tr with a movie rating should have an id attribute equal to the id of the movie rating
         public IActionResult Index()
         {
-            ViewBag.movies = MovieController.movies;
+            PopulateMovieList();
+            ViewBag.Movies = movies;
             return View();
         }
 
