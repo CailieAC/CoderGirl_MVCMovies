@@ -9,7 +9,7 @@ namespace CoderGirl_MVCMovies.Data
     {
         public static List<Movie> Movies = new List<Movie>();
 
-        public decimal GetAverageRatingByMovieName(string movieName)
+        public double GetAverageRatingByMovieName(string movieName)
         {
             // Given a movie name, returns the average rating of the movie.
             // If there are no ratings for the movie, returns an empty list.
@@ -29,13 +29,14 @@ namespace CoderGirl_MVCMovies.Data
             {
                 average = (decimal)(total / count);
             }
-                
-            return average;
+
+            //return average;
+            return Movies.Where(m => m.Name == movieName).Average(m => m.Rating);
         }
 
         public List<int> GetIds()
         {
-            return Movies.Select(p => p.Id).ToList();
+            return Movies.Select(m => m.Id).ToList();
         }
 
         public string GetMovieNameById(int id)
