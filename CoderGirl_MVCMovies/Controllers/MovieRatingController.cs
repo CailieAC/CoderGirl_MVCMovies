@@ -12,6 +12,7 @@ namespace CoderGirl_MVCMovies.Controllers
         private IMovieRatingRepository repository = RepositoryFactory.GetMovieRatingRepository();
         public static List<Movie> movies = new List<Movie>();
 
+        /*
         private string htmlForm = @"
             <form method='post'>
                 <input name='movieName' />
@@ -24,16 +25,18 @@ namespace CoderGirl_MVCMovies.Controllers
                 </select>
                 <button type='submit'>Rate it</button>
             </form>";
+            */
 
         private void PopulateMovieList()
         {
+            
             repository.SaveRating("The Matrix", 5);
             repository.SaveRating("The Matrix", 3);
             repository.SaveRating("The Matrix Reloaded", 2);
             repository.SaveRating("The Matrix Reloaded", 3);
             repository.SaveRating("The Matrix The really bad one", 2);
             repository.SaveRating("The Matrix The really bad one", 1);
-
+            
             foreach (int id in repository.GetIds())
             {
                 Movie mov = new Movie();
@@ -50,25 +53,7 @@ namespace CoderGirl_MVCMovies.Controllers
         {
             PopulateMovieList();
             Dictionary<Movie, double> movieAverages = new Dictionary<Movie, double>();
-            List<string> uniqueMovieNames = new List<string>();
-            foreach (Movie movie in movies)
-            {
-                if(uniqueMovieNames.Contains(movie.Name))
-                {
-                    continue;
-                }
-                uniqueMovieNames.Add(movie.Name);
-                movieAverages.Add(movie, repository.GetAverageRatingByMovieName(movie.Name));
-            }
-            ViewBag.Movies = movieAverages;
-            
-            return View("Index");
-        }
-        
-        
-        [HttpGet]
-        public IActionResult Create()
-        {
+
             List<string> uniqueMovieNames = new List<string>();
             foreach (Movie movie in movies)
             {
@@ -77,9 +62,21 @@ namespace CoderGirl_MVCMovies.Controllers
                     continue;
                 }
                 uniqueMovieNames.Add(movie.Name);
+                movieAverages.Add(movie, repository.GetAverageRatingByMovieName(movie.Name));
+                
+                //movieAverages.Add(movies.Where(m => m.Name).Distinct(), repository.GetAverageRatingByMovieName(movie.Name));
             }
-            ViewBag.Movies = uniqueMovieNames;
-            return View("Create");
+            ViewBag.Movies = movieAverages;
+            
+            return View();
+        }
+        
+        
+        [HttpGet]
+        public IActionResult Create()
+        {
+            ViewBag.Movies = movies.Select(m => m.Name).Distinct();
+            return View();
         }
 
         [HttpPost]
@@ -95,7 +92,7 @@ namespace CoderGirl_MVCMovies.Controllers
         {
             ViewBag.movieName = movieName;
             ViewBag.movieRating = rating;
-            return View("Details");
+            return View();
         }
     }
 }
