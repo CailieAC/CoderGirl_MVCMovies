@@ -53,6 +53,8 @@ namespace CoderGirl_MVCMovies.Data
 
         public int SaveRating(string movieName, int rating)
         {
+            
+
             // Given a movieName and rating, saves the rating and returns a unique id > 0.
             // If the movie name and/or rating are null or empty, nothing should be saved and it should return 0
             if (String.IsNullOrEmpty(movieName) || rating == 0)

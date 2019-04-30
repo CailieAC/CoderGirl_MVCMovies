@@ -27,15 +27,24 @@ namespace CoderGirl_MVCMovies.Controllers
 
         private void PopulateMovieList()
         {
-            movies.Add(
-                new Movie { Name = "The Matrix", Rating = 5, Id = 1 }
-            );
-            movies.Add(
-                new Movie { Name = "The Matrix Reloaded", Rating = 3, Id = 2 }
-            );
-            movies.Add(
-                new Movie { Name = "The Matrix The really bad one", Rating = 1, Id = 3 }
-            );
+            foreach (int id in repository.GetIds())
+            {
+                Movie mov = new Movie();
+                mov.Id = movies.Count + 1;
+                mov.Name = repository.GetMovieNameById(id);
+                mov.Rating = repository.GetRatingById(id);
+                movies.Add(mov);
+            }
+
+            //movies.Add(
+            //    new Movie { Name = "The Matrix", Rating = 5, Id = 1 }
+            //);
+            //movies.Add(
+            //    new Movie { Name = "The Matrix Reloaded", Rating = 3, Id = 2 }
+            //);
+            //movies.Add(
+            //    new Movie { Name = "The Matrix The really bad one", Rating = 1, Id = 3 }
+            //);
         }
 
         /// TODO: Create a view Index. This view should list a table of all saved movie names with associated average rating
@@ -56,7 +65,6 @@ namespace CoderGirl_MVCMovies.Controllers
             return View();
         }
 
-        // TODO: Save the movie/rating in the MovieRatingRepository before redirecting to the Details page
         // TODO: Redirect passing only the id of the created movie/rating
         [HttpPost]
         public IActionResult Create(string movieName, string rating)
