@@ -9,7 +9,7 @@ namespace CoderGirl_MVCMovies.Controllers
     public class MovieController : Controller
     {
         public static Dictionary<int, string> movies = new Dictionary<int, string>();
-        private static int nextIdToUse = 1; 
+        private static int nextIdToUse = 1;
 
         public IActionResult Index()
         {

@@ -27,12 +27,12 @@ namespace CoderGirl_MVCMovies.Controllers
 
         private void PopulateMovieList()
         {
-            //repository.SaveRating("The Matrix", 5);
-            //repository.SaveRating("The Matrix", 3);
-            //repository.SaveRating("The Matrix Reloaded", 2);
-            //repository.SaveRating("The Matrix Reloaded", 3);
-            //repository.SaveRating("The Matrix The really bad one", 2);
-            //repository.SaveRating("The Matrix The really bad one", 1);
+            repository.SaveRating("The Matrix", 5);
+            repository.SaveRating("The Matrix", 3);
+            repository.SaveRating("The Matrix Reloaded", 2);
+            repository.SaveRating("The Matrix Reloaded", 3);
+            repository.SaveRating("The Matrix The really bad one", 2);
+            repository.SaveRating("The Matrix The really bad one", 1);
 
             foreach (int id in repository.GetIds())
             {
@@ -44,9 +44,8 @@ namespace CoderGirl_MVCMovies.Controllers
             }
         }
 
-        /// TODO: Create a view Index. This view should list a table of all saved movie names with associated average rating
-        /// TODO: Be sure to include headers for Movie and Rating
-        /// TODO: Each tr with a movie rating should have an id attribute equal to the id of the movie rating
+        //  This view should list a table of all saved movie names with associated average rating
+        // Each tr with a movie rating should have an id attribute equal to the id of the movie rating
         public IActionResult Index()
         {
             PopulateMovieList();
@@ -70,7 +69,16 @@ namespace CoderGirl_MVCMovies.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            ViewBag.Movies = movies;
+            List<string> uniqueMovieNames = new List<string>();
+            foreach (Movie movie in movies)
+            {
+                if (uniqueMovieNames.Contains(movie.Name))
+                {
+                    continue;
+                }
+                uniqueMovieNames.Add(movie.Name);
+            }
+            ViewBag.Movies = uniqueMovieNames;
             return View("Create");
         }
 
