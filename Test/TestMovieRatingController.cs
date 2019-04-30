@@ -5,6 +5,7 @@ using CoderGirl_MVCMovies.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Test
 {
@@ -20,10 +21,10 @@ namespace Test
         [Fact]
         public void Test_GET_Create_ReturnsViewResult_ForCreate()
         {           
-            IActionResult result = controller.Create();
+            var result = controller.Create();
 
             var viewResult = Assert.IsType<ViewResult>(result);
-            Assert.Equal("Create", viewResult.ViewName);
+            Assert.Null(viewResult.ViewName);
         }
 
         [Theory]
@@ -49,7 +50,7 @@ namespace Test
             IActionResult result = controller.Details(movieName, rating);
 
             var viewResult = Assert.IsType<ViewResult>(result);
-            Assert.Equal("Details", viewResult.ViewName);
+            Assert.Null(viewResult.ViewName);
         }
     }
 }

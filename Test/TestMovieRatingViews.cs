@@ -29,14 +29,18 @@ namespace Test
         public void TestCreateRating(string name, string rating)
         {
             //add movies to data
-            driver.Url = BASE_URL + "movie/create";
-            driver.FindElementByName("movieName").SendKeys(name);
+            driver.Url = BASE_URL + "/movie/create";
+            driver.FindElementByName("movie").SendKeys(name);
+            var movieForm = driver.FindElementByTagName("form");
+            var movieSubmit = movieForm.FindElement(By.TagName("button"));
+            movieSubmit.Click();
 
             //navigate to add movie rating page and get elements
             driver.Url = BASE_URL + "/movierating/create";
-            var submit = driver.FindElementByTagName("button");
+            var form = driver.FindElementByTagName("form");
+            var submit = form.FindElement(By.TagName("button"));
             Assert.Equal("submit", submit.GetAttribute("type"));
-            var movieSelectInput = new SelectElement(driver.FindElementByName("rating"));
+            var movieSelectInput = new SelectElement(driver.FindElementByName("movieName"));
             var ratingSelectInput = new SelectElement(driver.FindElementByName("rating"));
 
             //make selections for input and submit
@@ -51,6 +55,7 @@ namespace Test
             driver.Url = BASE_URL + "/movierating";
             var rows = driver.FindElementsByTagName("tr");
             var headers = rows[0].FindElements(By.TagName("th"));
+            var source = driver.PageSource;
 
             //Verify the first row has proper headers
             Assert.Equal("Movie", headers[0].Text);
@@ -62,7 +67,8 @@ namespace Test
 
         private bool RowMatches(IWebElement row, string name, string rating)
         {
-            var tdElements = row.FindElements(By.TagName("tr"));
+            var tdElements = row.FindElements(By.TagName("td"));
+            if (tdElements.Count < 2) return false;
 
             return tdElements[0].Text == name && tdElements[1].Text == rating;
         }
