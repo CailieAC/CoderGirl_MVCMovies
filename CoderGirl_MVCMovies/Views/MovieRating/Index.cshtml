@@ -16,9 +16,9 @@
     </tr>
     @foreach (var movie in ViewBag.Movies)
     {
-        <tr id="@movie.Id">
-            <td >@movie.Name</td>
-            <td>@movie.Rating</td>
+        <tr id="@movie.Key.Id">
+            <td >@movie.Key.Name</td>
+            <td>@movie.Value</td>
         </tr>
     }
 </table>

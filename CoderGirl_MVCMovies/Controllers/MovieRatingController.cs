@@ -27,6 +27,13 @@ namespace CoderGirl_MVCMovies.Controllers
 
         private void PopulateMovieList()
         {
+            //repository.SaveRating("The Matrix", 5);
+            //repository.SaveRating("The Matrix", 3);
+            //repository.SaveRating("The Matrix Reloaded", 2);
+            //repository.SaveRating("The Matrix Reloaded", 3);
+            //repository.SaveRating("The Matrix The really bad one", 2);
+            //repository.SaveRating("The Matrix The really bad one", 1);
+
             foreach (int id in repository.GetIds())
             {
                 Movie mov = new Movie();
@@ -35,16 +42,6 @@ namespace CoderGirl_MVCMovies.Controllers
                 mov.Rating = repository.GetRatingById(id);
                 movies.Add(mov);
             }
-
-            //movies.Add(
-            //    new Movie { Name = "The Matrix", Rating = 5, Id = 1 }
-            //);
-            //movies.Add(
-            //    new Movie { Name = "The Matrix Reloaded", Rating = 3, Id = 2 }
-            //);
-            //movies.Add(
-            //    new Movie { Name = "The Matrix The really bad one", Rating = 1, Id = 3 }
-            //);
         }
 
         /// TODO: Create a view Index. This view should list a table of all saved movie names with associated average rating
@@ -53,36 +50,44 @@ namespace CoderGirl_MVCMovies.Controllers
         public IActionResult Index()
         {
             PopulateMovieList();
-            ViewBag.Movies = movies;
-            return View();
+            Dictionary<Movie, double> movieAverages = new Dictionary<Movie, double>();
+            List<string> uniqueMovieNames = new List<string>();
+            foreach (Movie movie in movies)
+            {
+                if(uniqueMovieNames.Contains(movie.Name))
+                {
+                    continue;
+                }
+                uniqueMovieNames.Add(movie.Name);
+                movieAverages.Add(movie, repository.GetAverageRatingByMovieName(movie.Name));
+            }
+            ViewBag.Movies = movieAverages;
+            
+            return View("Index");
         }
-
+        
         
         [HttpGet]
         public IActionResult Create()
         {
             ViewBag.Movies = movies;
-            return View();
+            return View("Create");
         }
 
-        // TODO: Redirect passing only the id of the created movie/rating
         [HttpPost]
         public IActionResult Create(string movieName, string rating)
         {
             int id = repository.SaveRating(movieName, int.Parse(rating));
-            return RedirectToAction(actionName: nameof(Details), routeValues: new { id });
+
+            return RedirectToAction(actionName: nameof(Details), routeValues: new { movieName, rating });
         }
 
-        
         [HttpGet]
-        public IActionResult Details(int id)
+        public IActionResult Details(string movieName, string rating)
         {
-            Movie mov = new Movie();
-            mov.Id = id;
-            mov.Name = repository.GetMovieNameById(id);
-            mov.Rating = repository.GetRatingById(id);
-            ViewBag.Movie = mov;
-            return View();
+            ViewBag.movieName = movieName;
+            ViewBag.movieRating = rating;
+            return View("Details");
         }
     }
 }

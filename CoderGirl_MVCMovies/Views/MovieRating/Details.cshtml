@@ -1,10 +1,10 @@
 ﻿
 @{
     ViewData["Title"] = "Details";
-    // TODO: Create a Details view which displays the formatted string with movie name and rating in an h2 tag. 
-    // TODO: The Details view should include a link to the MovieRating/Index page
 }
 
-<h1>Details</h1>
-<h2>@ViewBag.Movie.Name has a rating of @ViewBag.Movie.Rating"</h2>
+<h2>@ViewBag.movieName has a rating of @ViewBag.movieRating</h2>
+
+<a asp-controller="MovieRating" asp-action="Index">Home</a>
+
 
