@@ -10,9 +10,9 @@ namespace CoderGirl_MVCMovies.Controllers
     public class MovieRatingController : Controller
     {
         private IMovieRatingRepository repository = RepositoryFactory.GetMovieRatingRepository();
-        public static List<Movie> movies = new List<Movie>();
+        /*public static List<Movie> movies = new List<Movie>();
 
-        /*
+        
         private string htmlForm = @"
             <form method='post'>
                 <input name='movieName' />
@@ -25,7 +25,7 @@ namespace CoderGirl_MVCMovies.Controllers
                 </select>
                 <button type='submit'>Rate it</button>
             </form>";
-            */
+            
 
         private void PopulateMovieList()
         {
@@ -46,12 +46,13 @@ namespace CoderGirl_MVCMovies.Controllers
                 movies.Add(mov);
             }
         }
+        */
 
-        //  This view should list a table of all saved movie names with associated average rating
+        // This view should list a table of all saved movie names with associated average rating
         // Each tr with a movie rating should have an id attribute equal to the id of the movie rating
         public IActionResult Index()
         {
-            PopulateMovieList();
+            /*PopulateMovieList();
             Dictionary<Movie, double> movieAverages = new Dictionary<Movie, double>();
 
             List<string> uniqueMovieNames = new List<string>();
@@ -67,7 +68,13 @@ namespace CoderGirl_MVCMovies.Controllers
                 //movieAverages.Add(movies.Where(m => m.Name).Distinct(), repository.GetAverageRatingByMovieName(movie.Name));
             }
             ViewBag.Movies = movieAverages;
-            
+            */
+            List<int> ids = repository.GetIds();
+            var movieRatings = ids.Select(id => repository.GetMovieNameById(id))
+                                                            .Distinct()
+                                                            .Select(name => new KeyValuePair<string, double>(name, repository.GetAverageRatingByMovieName(name)))
+                                                            .ToList();
+            ViewBag.MovieRatings = movieRatings;
             return View();
         }
         
@@ -75,15 +82,15 @@ namespace CoderGirl_MVCMovies.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            ViewBag.Movies = movies.Select(m => m.Name).Distinct();
+
+            ViewBag.Movies = MovieController.movies.Select(m => m.Value).Distinct();
             return View();
         }
 
         [HttpPost]
         public IActionResult Create(string movieName, string rating)
         {
-            int id = repository.SaveRating(movieName, int.Parse(rating));
-
+            repository.SaveRating(movieName, int.Parse(rating));
             return RedirectToAction(actionName: nameof(Details), routeValues: new { movieName, rating });
         }
 

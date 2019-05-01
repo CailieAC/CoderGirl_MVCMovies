@@ -12,8 +12,6 @@ namespace CoderGirl_MVCMovies.Controllers
         public static Dictionary<int, string> movies = new Dictionary<int, string>();
         private static int nextIdToUse = 1;
 
-
-
         public IActionResult Index()
         {
             ViewBag.Movies = movies;

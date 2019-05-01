@@ -19,6 +19,7 @@ namespace Test
 
 
         public TestMovieRatingViews()
+            
         {
             driver = new ChromeDriver(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
         }

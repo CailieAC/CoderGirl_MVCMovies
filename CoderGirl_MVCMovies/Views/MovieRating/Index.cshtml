@@ -11,14 +11,14 @@
 <a asp-controller="MovieRating" asp-action="Create">Add New Movie</a>
 <table>
     <tr>
-        <th>Movie Name</th>
-        <th>Average Rating</th>
+        <th>Movie</th>
+        <th>Rating</th>
     </tr>
-    @foreach (var movie in ViewBag.Movies)
+    @foreach (var movieRating in ViewBag.MovieRatings)
     {
-        <tr id="@movie.Key.Id">
-            <td >@movie.Key.Name</td>
-            <td>@movie.Value</td>
+        <tr>
+            <td>@movieRating.Key</td>
+            <td>@movieRating.Value</td>
         </tr>
     }
 </table>
