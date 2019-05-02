@@ -1,4 +1,4 @@
-﻿
+﻿@model List<CoderGirl_MVCMovies.Models.Movie> 
 @{
     ViewData["Title"] = "Movies";
 }
@@ -8,11 +8,18 @@
 <table>
     <tr>
         <th>Movie Name</th>
+        <th>Director</th>
+        <th>Year</th>
     </tr>
-    @foreach (var movie in ViewBag.Movies)
+    @foreach (var movie in Model)
     {
         <tr>
-            <td>@movie.Value</td>
+            <td>@movie.Name</td>
+            <td>@movie.Director</td>
+            <td>@movie.Year</td>
+            <!--TODO: Fix this link-->
+            <td><a asp-controller="Movie" asp-action="Edit" asp-route="@movie.Id">Edit</a></td>
         </tr>
+        
     }
 </table>
