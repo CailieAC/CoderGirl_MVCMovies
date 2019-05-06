@@ -10,10 +10,13 @@ namespace CoderGirl_MVCMovies.Controllers
 {
     public class MovieController : Controller
     {
-        public static IMovieRespository movieRepository = RepositoryFactory.GetMovieRepository();
+        //public static Dictionary<int, string> movies = new Dictionary<int, string>();
+        private IMovieRepository movieRepository = RepositoryFactory.GetMovieRepository();
+        private static int nextIdToUse = 1; 
 
         public IActionResult Index()
         {
+            //Have to pass something in to the model, or it will give an error
             List<Movie> movies = movieRepository.GetMovies();
             return View(movies);
         }
@@ -35,25 +38,18 @@ namespace CoderGirl_MVCMovies.Controllers
         public IActionResult Edit(int id)
         {
             Movie movie = movieRepository.GetById(id);
-            return View(movie);
+            //We can re-use views like this, although not always the best approach
+            return View("Create", movie);
         }
 
         [HttpPost]
         public IActionResult Edit(int id, Movie movie)
         {
-            //since id is not part of the edit form, it isn't included in the model, thus it needs to be set from the route value
-            //there are alternative patterns for doing this - for one, you could include the id in the form but make it hidden
-            //feel free to experiment - the tests wont' care as long as you preserve the id correctly in some manner
-            movie.Id = id; 
-            movieRepository.Update(movie);
+            //We can't save it this way (repository.Save)- our save method currenlty assigns new id - need to either edit
+            //the method to check for existing Id, or create new edit method
+            //TODO: Update movie
             return RedirectToAction(actionName: nameof(Index));
-        }
-
-        [HttpGet]
-        public IActionResult Delete(int id)
-        {
-            movieRepository.Delete(id);
-            return RedirectToAction(actionName: nameof(Index));
+            //post method never returns a view, just redirects
         }
     }
 }
