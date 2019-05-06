@@ -1,17 +1,21 @@
-﻿
+﻿@model List<CoderGirl_MVCMovies.Models.MovieRating>
 @{
     ViewData["Title"] = "Movie Ratings";
 }
 
 <h1>Movie Ratings</h1>
+<a id="add-movierating" asp-action="Create">Rate a Movie</a>
 <table>
     <tr>
         <th>Movie</th><th>Rating</th>
     </tr>
-    @foreach(var movieRating in ViewBag.MovieRatings)
+    @foreach(var movieRating in Model)
     {
-        <tr>
-            <td>@movieRating.Key</td><td>@movieRating.Value</td>
-        </tr>
+    <tr>
+        <td>@movieRating.Movie</td>
+        <td>@movieRating.Rating</td>
+        <td><a asp-action="Edit" asp-route-id="@movieRating.Id">Edit</a></td>
+        <td><a asp-action="Delete" asp-route-id="@movieRating.Id">Delete</a></td>
+    </tr>
     }
 </table>

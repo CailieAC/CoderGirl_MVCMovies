@@ -8,15 +8,14 @@ namespace CoderGirl_MVCMovies.Data
 {
     public interface IMovieRepository
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="movie"></param>
-        /// <returns></returns>
         int Save(Movie movie);
 
         List<Movie> GetMovies();
 
         Movie GetById(int id);
+
+        void Update(Movie movie);
+
+        void Delete(int id);
     }
 }
