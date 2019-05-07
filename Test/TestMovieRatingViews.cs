@@ -180,7 +180,7 @@ namespace Test
 
         private string GetRouteValueForLink(IWebElement editLink)
         {
-            var action = editLink.GetAttribute("action").ToString();
+            var action = editLink.GetAttribute("href").ToString();
             return action.Substring(action.LastIndexOf("/") + 1);
         }
 
