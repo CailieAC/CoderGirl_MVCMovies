@@ -105,18 +105,36 @@ namespace Test
         }
 
         [Theory, TestPriority(5)]
-        [InlineData("Star Wars", "5")]
-        [InlineData("Princess Bride", "4")]
+        [InlineData("Star Wars", "3")]
+        [InlineData("Princess Bride", "5")]
         public void TestDeleteMovieRating(string name, string rating)
         {
             //navigate to movie rating list page
             driver.Url = BASE_URL + "/movierating";
+
+            //get table rows
+            var rows = driver.FindElementsByTagName("tr");
+            var headers = rows[0].FindElements(By.TagName("th"));
+
+            //get row for test items and click Delete link
+            var testRow = rows.Single(r => MovieRatingRowMatches(r, name, rating));
+            var deleteLink = GetDeleteLink(testRow);
+            var itemId = GetRouteValueForLink(deleteLink);
+            deleteLink.Click();
+
+            //Verify no redirect
+            Assert.Contains(Uri.EscapeUriString(BASE_URL + $"/movierating"), driver.Url.ToLower());
+
+            //Verify item is deleted
+            rows = driver.FindElementsByTagName("tr");
+            testRow = rows.Skip(1).SingleOrDefault(r => GetRouteValueForLink(GetDeleteLink(r)) == itemId);
+            Assert.Null(testRow);
         }
 
         [Theory, TestPriority(4)]
-        [InlineData("Star Wars", "5")]
-        [InlineData("Princess Bride", "4")]
-        public void TestEditMovieRating(string name, string rating)
+        [InlineData("Star Wars", "5", "3")]
+        [InlineData("Princess Bride", "4", "5")]
+        public void TestEditMovieRating(string name, string rating, string newRating)
         {
             //navigate to movie rating list page
             driver.Url = BASE_URL + "/movierating";
@@ -127,15 +145,40 @@ namespace Test
 
             //get row for test items and click Edit link
             var testRow = rows.Single(r => MovieRatingRowMatches(r, name, rating));
-            var editLink = testRow.FindElement(By.LinkText("Edit"));
+            var editLink = GetEditLink(testRow);
             var itemId = GetRouteValueForLink(editLink);
+            editLink.Click();
 
             //click Edit and verify we are at correct page
-            editLink.Click();
             Assert.Contains(Uri.EscapeUriString(BASE_URL + $"/movierating/edit/"), driver.Url.ToLower());
+
+            //Change values for name and rating then submit
+            driver.FindElementById("Movie").SendKeys("badName");
+            new SelectElement(driver.FindElementById("Rating")).SelectByText(newRating);
+            var submitButton = driver.FindElementByTagName("form").FindElement(By.TagName("button"));
+            Assert.Equal("Update Rating", submitButton.Text);
+            submitButton.Click();
+
+            //verify it redirects to Index page
+            Assert.Contains(Uri.EscapeUriString(BASE_URL + $"/movierating"), driver.Url.ToLower());
+
+            //Find row for item with same id and verify rating but not name is updated
+            rows = driver.FindElementsByTagName("tr");
+            testRow = rows.Skip(1).SingleOrDefault(r => GetRouteValueForLink(GetEditLink(r)) == itemId);
+            Assert.Contains(rows, row => MovieRatingRowMatches(row, name, newRating));
         }
 
-        private object GetRouteValueForLink(IWebElement editLink)
+        private static IWebElement GetEditLink(IWebElement testRow)
+        {
+            return testRow.FindElement(By.LinkText("Edit"));
+        }
+
+        private static IWebElement GetDeleteLink(IWebElement testRow)
+        {
+            return testRow.FindElement(By.LinkText("Delete"));
+        }
+
+        private string GetRouteValueForLink(IWebElement editLink)
         {
             var action = editLink.GetAttribute("action").ToString();
             return action.Substring(action.LastIndexOf("/") + 1);
