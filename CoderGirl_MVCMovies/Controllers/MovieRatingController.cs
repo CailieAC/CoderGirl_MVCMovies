@@ -19,6 +19,7 @@ namespace CoderGirl_MVCMovies.Controllers
             return View(movieRatings);
         }
 
+        //TODO: will have to change this
         [HttpGet]
         public IActionResult Create()
         {
