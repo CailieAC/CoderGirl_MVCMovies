@@ -20,6 +20,7 @@ namespace CoderGirl_MVCMovies.Data
 
         public Movie GetById(int id)
         {
+            //TODO: Insert MovieRatings
             Movie movie = movies.SingleOrDefault(m => m.Id == id);
             movie = SetMovieRatings(movie);
             movie = SetDirectorName(movie);
