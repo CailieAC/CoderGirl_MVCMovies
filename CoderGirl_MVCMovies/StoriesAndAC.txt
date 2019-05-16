@@ -74,15 +74,22 @@ Stretch Goal: Validate Movie name
 
 I want to validate the Movie model from /Movie/Create
 - Given I am on the /Movie/Create page, if I click submit without entering a name I should get a validation message "Name must be included"
-- Given I am on the /Movie/Create page, if I click submit without entering a year I should get a validation message "Year must be included"
 - Given I am on the /Movie/Create page, if I click submit and the year I enter is before 1888 or after the current year I should get a validation message "Not a valid year"
 
 I want to validate the Director model from /Director/Create
+- Given I am on the /Director/Create page, the input for BirthDate should have type="date"
 - Given I am on the /Director/Create page, if I click submit without entering a name I should get a validation message "Name must be included"
-- Given I am on the /Director/Create page, if I click submit without entering a Birth Date I should get a validation message "Birth Date must be included"
-- Given I am on the /Director/Create page, if I click submit and the Birth Date is in an incorrect format, I should get a validation message "Invalid Date format"
 - Given I am on the /Director/Create page, the default value for Nationality should be "unknown"
 - Given I am on the /Director/Create page, if I click submit and the Nationality has no value, make the value to be "unknown"
+
+This week, do a class diagram to set up implementation of next weeks refactor. Bring to class next week.
+- Class diagram for BaseRepository which contains methods common to MovieRepository, DirectorRepository and MovieRatingRepository
+- Each method on the BaseRepository should take either an int or a IModel object
+- Class diagrams for MovieRepository, DirectorRepository and MovieRatingRepository
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+5/22/2019
 
 Instruction for Inheritance:
 By this point you should have 3 different repository classes. Their signature should be very similiar if not nearly identical. Most methods are doing nearly identical work.
