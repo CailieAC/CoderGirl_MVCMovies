@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CoderGirl_MVCMovies.Data
 {
-    public interface IMovieRespository
+    public interface IMovieRepository
     {
         int Save(Movie movie);
 
