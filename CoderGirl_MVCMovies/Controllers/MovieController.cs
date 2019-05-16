@@ -29,6 +29,17 @@ namespace CoderGirl_MVCMovies.Controllers
         [HttpPost]
         public IActionResult Create(Movie movie)
         {
+            //Server side validation can take place in Post. Or can go in the Movie Model.
+            //Should probably go in Movie Model in the future.
+            //TODO: Figure out if user not entering a movie name be null or empty?
+            if (String.IsNullOrWhiteSpace(movie.Name))
+            {
+                ModelState.AddModelError("Name", "Name must be included");
+                //Have to give them this again
+                ViewBag.Directors = directorRepository.GetDirectors();
+                return View(movie);
+            }
+
             movieRepository.Save(movie);
             return RedirectToAction(actionName: nameof(Index));
         }
