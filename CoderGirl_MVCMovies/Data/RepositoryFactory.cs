@@ -8,7 +8,7 @@ namespace CoderGirl_MVCMovies.Data
     public static class RepositoryFactory
     {
         private static IMovieRatingRepository movieRatingRepository;
-        private static IMovieRespository movieRepository;
+        private static IMovieRepository movieRepository;
 
         public static IMovieRatingRepository GetMovieRatingRepository()
         {
@@ -17,7 +17,7 @@ namespace CoderGirl_MVCMovies.Data
             return movieRatingRepository;
         }
 
-        public static IMovieRespository GetMovieRepository()
+        public static IMovieRepository GetMovieRepository()
         {
             if (movieRepository == null)
                 movieRepository = new MovieRepository();
