@@ -19,6 +19,7 @@ namespace CoderGirl_MVCMovies.Data
 
         public Movie GetById(int id)
         {
+            //TODO: Insert MovieRatings
             Movie movie = movies.SingleOrDefault(m => m.Id == id);
             movie = SetMovieRatings(movie);
             return movie;
@@ -26,6 +27,7 @@ namespace CoderGirl_MVCMovies.Data
 
         public List<Movie> GetMovies()
         {
+            //TODO: For each movie insert MovieRatings
             return movies.Select(movie => SetMovieRatings(movie)).ToList();
         }
 
