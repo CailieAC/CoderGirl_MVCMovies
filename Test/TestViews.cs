@@ -39,7 +39,7 @@ namespace Test
             driver.FindElementByName("FirstName").SendKeys(first);
             driver.FindElementByName("LastName").SendKeys(last);
             driver.FindElementByName("BirthDate").SendKeys(birth);
-            driver.FindElementByName("Nationality").SendKeys(nation);
+            driver.FindElementByName("Nationality").Clear().SendKeys(nation);
             var form = driver.FindElementByTagName("form");
             form.FindElement(By.TagName("button")).Click();
 
@@ -87,7 +87,7 @@ namespace Test
             Assert.Equal(Uri.EscapeUriString(BASE_URL + $"/movie"), driver.Url, true);           
         }
 
-        [Theory, TestPriority(1)]
+        [Theory, TestPriority(2)]
         [InlineData("Star Wars", "Lucas, George", "1976")]
         [InlineData("Princess Bride", "Spielberg, Stephen", "1987")]
         public void TestMovieList(string name, string director, string year)
@@ -145,7 +145,7 @@ namespace Test
             Assert.Equal(count, Convert.ToInt32(testRow.FindElements(By.TagName("td"))[4].Text));
         }
 
-        [Fact]
+        [Fact, TestPriority(4)]
         public void TestCreateMovieValidation()
         {
             //navigate to /movie/create and submit invalid form
@@ -166,7 +166,7 @@ namespace Test
             Assert.Equal("Not a valid year", yearErrorMsgSpan.Text);
         }
 
-        [Fact]
+        [Fact, TestPriority(5)]
         public void TestCreateDirectorValidation()
         {
             //navigate to /director/create and submit invalid form
