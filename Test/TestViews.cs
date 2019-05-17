@@ -182,7 +182,7 @@ namespace Test
             Assert.Equal(Uri.EscapeUriString(BASE_URL + $"/Direct/Create"), driver.Url, true);
             var nameErrorMsgSpan = driver.FindElementsByTagName("span").Single(el => el.GetAttribute("data-valmsg-for") == "Name");
             Assert.Equal("Name must be included", nameErrorMsgSpan.Text);
-            nationalityInput = driver.FindElementsByName("input").Single(el => el.GetAttribute("name") == "Nationality");
+            nationalityInput = driver.FindElementsByTagName("input").Single(el => el.GetAttribute("name") == "Nationality");
             Assert.Equal("unknown", nationalityInput.GetAttribute("value"));
         }
 
