@@ -68,3 +68,42 @@ When I create a movie, I want to choose a director from a dropdown
 Stretch Goal: Validate Movie name 
 - Given I am on the /Movie/Create page, if I add a movie without entering a name, I will see a validation error message.
 - If I get a validation error message, none of the other info I entered should be erased. 
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+5/14/19
+
+I want to validate the Movie model from /Movie/Create
+- Given I am on the /Movie/Create page, if I click submit without entering a name I should get a validation message "Name must be included"
+- Given I am on the /Movie/Create page, if I click submit and the year I enter is before 1888 or after the current year I should get a validation message "Not a valid year"
+
+I want to validate the Director model from /Director/Create
+- Given I am on the /Director/Create page, the input for BirthDate should have type="date"
+- Given I am on the /Director/Create page, if I click submit without entering a name I should get a validation message "Name must be included"
+- Given I am on the /Director/Create page, the default value for Nationality should be "unknown"
+- Given I am on the /Director/Create page, if I click submit and the Nationality has no value, make the value to be "unknown"
+
+This week, do a class diagram to set up implementation of next weeks refactor. Bring to class next week.
+- Class diagram for BaseRepository which contains methods common to MovieRepository, DirectorRepository and MovieRatingRepository
+- Each method on the BaseRepository should take either an int or a IModel object
+- Class diagrams for MovieRepository, DirectorRepository and MovieRatingRepository
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+5/22/2019
+
+Instruction for Inheritance:
+By this point you should have 3 different repository classes. Their signature should be very similiar if not nearly identical. Most methods are doing nearly identical work.
+This means that these are good candidates for inheritance. 
+- Create an interface called IModel. It should contain a property of type int called Id. 
+- Have all your models implement the IModel interface
+- Create a ModelRepository class. (Recommend first creating an IModelRepository interface to have this implement.)
+- The ModelRepository class should have methods for 
+	- saving a new IModel (assign it unique id and add to list)
+	- getting the list of IModel instances created
+	- updating a current IModel object
+	- getting a single IModel object by its id
+	- deleting a particular IModel object
+- Have your Movie, MovieRating and Director Repositories inherit from the ModelRepository class
+- Your goal is to move as much common code as possible to the ModelRepository. 
+In fact, if done correctly, in the case of the DirectorRepository can be basically an empty class with no methods, fields or properites of its own.
+NOTE: This is nothing more than a refactor. That is, the tests from last week have not changed at all (though some new ones for validation will be added), and they should all still pass after your changes.

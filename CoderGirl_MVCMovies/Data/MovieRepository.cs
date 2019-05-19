@@ -6,11 +6,12 @@ using CoderGirl_MVCMovies.Models;
 
 namespace CoderGirl_MVCMovies.Data
 {
-    public class MovieRepository : IMovieRespository
+    public class MovieRepository : IMovieRepository
     {
         static List<Movie> movies = new List<Movie>();
         static int nextId = 1;
         static IMovieRatingRepository ratingRepository = RepositoryFactory.GetMovieRatingRepository();
+        static IDirectorRepository directorRepository = RepositoryFactory.GetDirectorRepository();
 
         public void Delete(int id)
         {
@@ -19,14 +20,17 @@ namespace CoderGirl_MVCMovies.Data
 
         public Movie GetById(int id)
         {
+            //TODO: Insert MovieRatings
             Movie movie = movies.SingleOrDefault(m => m.Id == id);
             movie = SetMovieRatings(movie);
+            movie = SetDirectorName(movie);
             return movie;
         }
 
         public List<Movie> GetMovies()
         {
-            return movies.Select(movie => SetMovieRatings(movie)).ToList();
+            return movies.Select(movie => SetMovieRatings(movie))
+                .Select(movie => SetDirectorName(movie)).ToList();
         }
 
         public int Save(Movie movie)
@@ -49,6 +53,13 @@ namespace CoderGirl_MVCMovies.Data
                                                 .Select(rating => rating.Rating)
                                                 .ToList();
             movie.Ratings = ratings;
+            return movie;
+        }
+
+        private Movie SetDirectorName(Movie movie)
+        {
+            Director director = directorRepository.GetById(movie.DirectorId);
+            movie.DirectorName = director.FullName;
             return movie;
         }
     }

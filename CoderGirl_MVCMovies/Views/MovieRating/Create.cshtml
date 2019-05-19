@@ -6,12 +6,7 @@
 
 <h1>Rate a Movie</h1>
 <form method='post'>
-    <select asp-for="MovieName">
-        @foreach (var name in ViewBag.MovieNames)
-        {
-            <option>@name</option>
-        }
-    </select>
+    <input readonly asp-for="MovieName" value="@Model.MovieName"/>
     <select asp-for="Rating">
         <option>1</option>
         <option>2</option>

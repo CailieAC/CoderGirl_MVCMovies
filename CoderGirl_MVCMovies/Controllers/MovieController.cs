@@ -10,7 +10,8 @@ namespace CoderGirl_MVCMovies.Controllers
 {
     public class MovieController : Controller
     {
-        public static IMovieRespository movieRepository = RepositoryFactory.GetMovieRepository();
+        static IMovieRepository movieRepository = RepositoryFactory.GetMovieRepository();
+        static IDirectorRepository directorRepository = RepositoryFactory.GetDirectorRepository();
 
         public IActionResult Index()
         {
@@ -21,12 +22,31 @@ namespace CoderGirl_MVCMovies.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            ViewBag.Directors = directorRepository.GetDirectors();
             return View();
         }
 
         [HttpPost]
         public IActionResult Create(Movie movie)
         {
+            //Server side validation can take place in Post. Or can go in the Movie Model.
+            //Should probably go in Movie Model in the future.
+            //TODO: Figure out if user not entering a movie name be null or empty?
+            if (String.IsNullOrWhiteSpace(movie.Name))
+            {
+                ModelState.AddModelError("Name", "Name must be included");
+            }
+            if (movie.Year < 1888 || movie.Year > DateTime.Now.Year) 
+            {
+                ModelState.AddModelError("Year", "Year is not valid"); 
+            }
+            if (ModelState.ErrorCount>0)
+            {
+                //Have to give them the directors again
+                ViewBag.Directors = directorRepository.GetDirectors();
+                return View(movie);
+            }
+
             movieRepository.Save(movie);
             return RedirectToAction(actionName: nameof(Index));
         }

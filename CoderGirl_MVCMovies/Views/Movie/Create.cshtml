@@ -21,7 +21,7 @@
                 <select asp-for="DirectorId">
                     @foreach (var director in ViewBag.Directors)
                     {
-                        <option value="@director.Id">@director.DirectorName</option>
+                        <option value="@director.Id">@director.FullName</option>
                     }
                 </select>
             </div>
