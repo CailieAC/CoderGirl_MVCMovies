@@ -11,30 +11,26 @@ namespace CoderGirl_MVCMovies.Controllers
     public class MovieRatingController : Controller
     {
         private IMovieRatingRepository ratingRepository = RepositoryFactory.GetMovieRatingRepository();
-        private IMovieRepository movieRespository = RepositoryFactory.GetMovieRepository();
+        private IMovieRespository movieRespository = RepositoryFactory.GetMovieRepository();
 
-       public IActionResult Index()
+        public IActionResult Index()
         {
             List<MovieRating> movieRatings = ratingRepository.GetMovieRatings();
             return View(movieRatings);
         }
 
-        //TODO: will have to change this
         [HttpGet]
-        public IActionResult Create(int movieId)
+        public IActionResult Create()
         {
-            string movieName = movieRespository.GetById(movieId).Name;
-            MovieRating movieRating = new MovieRating();
-            movieRating.MovieId = movieId;
-            movieRating.MovieName = movieName;
-            return View(movieRating);
+            ViewBag.MovieNames = movieRespository.GetMovies().Select(m => m.Name).ToList();
+            return View();
         }
 
         [HttpPost]
-        public IActionResult Create(int movieId, MovieRating movieRating)
+        public IActionResult Create(MovieRating movieRating)
         {
             ratingRepository.Save(movieRating);
-            return RedirectToAction(controllerName: nameof(Movie), actionName: nameof(Index));
+            return RedirectToAction(actionName: nameof(Index));
         }
 
         [HttpGet]
