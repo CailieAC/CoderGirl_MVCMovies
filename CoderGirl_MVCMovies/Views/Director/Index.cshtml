@@ -1,26 +1,25 @@
-﻿@model IEnumerable<CoderGirl_MVCMovies.Models.Director>
+﻿@model List<CoderGirl_MVCMovies.Models.Director>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Directors";
 }
 
-<h1>Index</h1>
-
-<p>
-    <a id="add-new-director" asp-action="Create">Add a Director</a>
-</p>
+<h1>Directors</h1>
+<a asp-controller="Director" asp-action="Create">Add New Director</a>
 <table>
     <tr>
         <th>Name</th>
         <th>Birth Date</th>
         <th>Nationality</th>
     </tr>
-    @foreach(var item in Model)
+    @foreach (var director in Model)
     {
-        <tr>
-            <td>@item.LastName, @item.FirstName</td>
-            <td>@item.BirthDate.ToString("M/d/yyyy")</td>
-            <td>@item.Nationality</td>
+        <tr id="@director.Id">
+            <td>@director.LastName, @director.FirstName</td>
+            <td>@director.BirthDate</td>
+            <td>@director.Nationality</td>
+            <td><a asp-controller="Director" asp-action="Edit" asp-route-id="@director.Id">Edit</a></td>
+            <td><a asp-controller="Director" asp-action="Delete" asp-route-id="@director.Id">Delete</a></td>
         </tr>
     }
 </table>
