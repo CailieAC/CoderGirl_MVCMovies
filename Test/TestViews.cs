@@ -39,7 +39,7 @@ namespace Test
             driver.FindElementByName("FirstName").SendKeys(first);
             driver.FindElementByName("LastName").SendKeys(last);
             driver.FindElementByName("BirthDate").SendKeys(birth);
-            driver.FindElementByName("Nationality").Clear().SendKeys(nation);
+            driver.FindElementByName("Nationality").SendKeys(nation);
             var form = driver.FindElementByTagName("form");
             form.FindElement(By.TagName("button")).Click();
 

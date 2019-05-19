@@ -59,7 +59,7 @@ namespace CoderGirl_MVCMovies.Data
         private Movie SetDirectorName(Movie movie)
         {
             Director director = directorRepository.GetById(movie.DirectorId);
-            movie.DirectorName = director.FullName;
+            movie.Director = director.FullName;
             return movie;
         }
     }
