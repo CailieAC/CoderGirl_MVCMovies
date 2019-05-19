@@ -84,10 +84,10 @@ namespace Test
             movieSubmit.Click();
 
             //verify it redirects to Index
-            Assert.Equal(Uri.EscapeUriString(BASE_URL + $"/movie"), driver.Url, true);           
+            Assert.Equal(Uri.EscapeUriString(BASE_URL + $"/movie"), driver.Url, true);
         }
 
-        [Theory, TestPriority(2)]
+        [Theory, TestPriority(1)]
         [InlineData("Star Wars", "Lucas, George", "1976")]
         [InlineData("Princess Bride", "Spielberg, Stephen", "1987")]
         public void TestMovieList(string name, string director, string year)
@@ -143,47 +143,6 @@ namespace Test
             testRow = GetRowByMatchingText(rows, name, 0);
             Assert.Equal(average, Convert.ToDouble(testRow.FindElements(By.TagName("td"))[3].Text));
             Assert.Equal(count, Convert.ToInt32(testRow.FindElements(By.TagName("td"))[4].Text));
-        }
-
-        [Fact, TestPriority(4)]
-        public void TestCreateMovieValidation()
-        {
-            //navigate to /movie/create and submit invalid form
-            driver.Url = BASE_URL + "/movie/create";
-            driver.FindElementByName("Name").SendKeys("");
-            var directorSelect = new SelectElement(driver.FindElementByName("DirectorId"));
-            directorSelect.SelectByValue("1");
-            driver.FindElementByName("Year").SendKeys("1887");
-            var movieForm = driver.FindElementByTagName("form");
-            var movieSubmit = movieForm.FindElement(By.TagName("button"));
-            movieSubmit.Click();
-
-            //verify did not leave page and error messages are set
-            Assert.Equal(Uri.EscapeUriString(BASE_URL + $"/Movie/Create"), driver.Url, true);
-            var nameErrorMsgSpan = driver.FindElementsByTagName("span").Single(el => el.GetAttribute("data-valmsg-for") == "Name");
-            Assert.Equal("Name must be included", nameErrorMsgSpan.Text);
-            var yearErrorMsgSpan = driver.FindElementsByTagName("span").Single(el => el.GetAttribute("data-valmsg-for") == "Year");
-            Assert.Equal("Not a valid year", yearErrorMsgSpan.Text);
-        }
-
-        [Fact, TestPriority(5)]
-        public void TestCreateDirectorValidation()
-        {
-            //navigate to /director/create and submit invalid form
-            driver.Url = BASE_URL + "/director/create";
-            driver.FindElementByName("Name").SendKeys("");
-            var nationalityInput = driver.FindElementByName("Nationality");
-            Assert.Equal("unknown", nationalityInput.GetAttribute("value"));
-            var movieForm = driver.FindElementByTagName("form");
-            var movieSubmit = movieForm.FindElement(By.TagName("button"));
-            movieSubmit.Click();
-
-            //verify did not leave page and error messages are set
-            Assert.Equal(Uri.EscapeUriString(BASE_URL + $"/Direct/Create"), driver.Url, true);
-            var nameErrorMsgSpan = driver.FindElementsByTagName("span").Single(el => el.GetAttribute("data-valmsg-for") == "Name");
-            Assert.Equal("Name must be included", nameErrorMsgSpan.Text);
-            nationalityInput = driver.FindElementsByTagName("input").Single(el => el.GetAttribute("name") == "Nationality");
-            Assert.Equal("unknown", nationalityInput.GetAttribute("value"));
         }
 
         private IWebElement GetRowByMatchingText(ReadOnlyCollection<IWebElement> rows, string text, int columnIndex)
