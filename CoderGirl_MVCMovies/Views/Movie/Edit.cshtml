@@ -15,6 +15,16 @@
                 <input readonly asp-for="Name" class="form-control" value="@Model.Name" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
+            @*<div class="form-group">
+            <label asp-for="Director" class="control-label"></label>
+            <select asp-for="DirectorId" class="form-control" value="@Model.DirectorId" >
+                @foreach (var director in ViewBag.Directors)
+                {
+                    <option value="@director.Id">@director.LastName, @director.FirstName</option>
+                }
+            </select>
+            <span asp-validation-for="DirectorId" class="text-danger"></span>
+        </div>*@
             <div class="form-group">
                 <label asp-for="Director" class="control-label"></label>
                 <input asp-for="Director" class="form-control" value="@Model.Director" />
