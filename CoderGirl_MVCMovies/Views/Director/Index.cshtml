@@ -16,7 +16,7 @@
     {
         <tr id="@director.Id">
             <td>@director.LastName, @director.FirstName</td>
-            <td>@director.BirthDate</td>
+            <td>@director.BirthDate.ToShortDateString()</td>
             <td>@director.Nationality</td>
             <td><a asp-controller="Director" asp-action="Edit" asp-route-id="@director.Id">Edit</a></td>
             <td><a asp-controller="Director" asp-action="Delete" asp-route-id="@director.Id">Delete</a></td>

@@ -13,18 +13,19 @@ namespace CoderGirl_MVCMovies.Data
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
-        }
+			directors.RemoveAll(m => m.Id == id);
+		}
 
         public Director GetById(int id)
         {
-            throw new NotImplementedException();
-        }
+			Director director = directors.SingleOrDefault(m => m.Id == id);			
+			return director;
+		}
 
         public List<Director> GetDirectors()
         {
-            throw new NotImplementedException();
-        }
+			return directors;
+		}
 
         public int Save(Director director)
         {
@@ -35,7 +36,8 @@ namespace CoderGirl_MVCMovies.Data
 
         public void Update(Director director)
         {
-            throw new NotImplementedException();
-        }
+			this.Delete(director.Id);
+			directors.Add(director);
+		}
     }
 }

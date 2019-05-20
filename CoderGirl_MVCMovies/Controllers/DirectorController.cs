@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CoderGirl_MVCMovies.Controllers
 {
-
     public class DirectorController : Controller
     {
         public static IDirectorRepository directorRepository = RepositoryFactory.GetDirectorRepository();
@@ -22,7 +21,7 @@ namespace CoderGirl_MVCMovies.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            return View();
+			return View();
         }
 
         [HttpPost]
