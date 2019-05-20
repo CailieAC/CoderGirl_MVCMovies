@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CoderGirl_MVCMovies.Data
 {
-    interface IDirectorRepository
+    public interface IDirectorRepository
     {
         int Save(Director director);
 
@@ -19,3 +19,4 @@ namespace CoderGirl_MVCMovies.Data
         void Delete(int id);
     }
 }
+

@@ -8,19 +8,28 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CoderGirl_MVCMovies.Controllers
 {
-    public static IDirectorRepository directorRepository = RepositoryFactory.GetDirectorRepository();
 
     public class DirectorController : Controller
     {
+        public static IDirectorRepository directorRepository = RepositoryFactory.GetDirectorRepository();
+
         public IActionResult Index()
         {
-            List<Director> directors = DirectorRepository.GetDirectors();
+            List<Director> directors = directorRepository.GetDirectors();
             return View(directors);
         }
 
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(Director director)
+        {
+            directorRepository.Save(director);
+            return RedirectToAction(actionName: nameof(Index));
         }
     }
 }
