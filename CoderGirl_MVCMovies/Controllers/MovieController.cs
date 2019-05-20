@@ -12,7 +12,7 @@ namespace CoderGirl_MVCMovies.Controllers
     {
 		public static IDirectorRepository directorRepository = RepositoryFactory.GetDirectorRepository();
 		
-        public static IMovieRespository movieRepository = RepositoryFactory.GetMovieRepository();
+        public static IMovieRepository movieRepository = RepositoryFactory.GetMovieRepository();
 
         public IActionResult Index()
         {
