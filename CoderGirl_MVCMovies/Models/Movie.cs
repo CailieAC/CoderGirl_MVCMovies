@@ -9,10 +9,10 @@ namespace CoderGirl_MVCMovies.Models
     {
         public int Id { set; get; }
         public string Name { get; set; }
+        public int DirectorId { get; set; }
         public string Director { get; set; }
         public int Year { get; set; }
         public List<int> Ratings { get; set; }
-        public int DirectorId { get; set; }
         public double AverageRating { get; set; }
         public int NumberOfRatings { get; set; }
     }
