@@ -8,7 +8,7 @@
 <a asp-controller="Movie" asp-action="Create">Add New Movie</a>
 <table>
     <tr>
-        <th>Movie Name</th>
+        <th>Name</th>
         <th>Director</th>
         <th>Year</th>
         <th>Average Rating</th>
@@ -20,6 +20,8 @@
         <td>@movie.Name</td>
         <td>@movie.Director</td>
         <td>@movie.Year</td>
+        <td>@movie.AverageRating</td>
+        <td>@movie.NumberOfRatings</td>
         @if (movie.Ratings.Count > 0)
         {
             <td>@movie.Ratings.Average()</td>
