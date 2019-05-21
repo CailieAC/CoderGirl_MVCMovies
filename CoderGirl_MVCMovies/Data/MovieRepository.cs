@@ -29,7 +29,7 @@ namespace CoderGirl_MVCMovies.Data
         public List<Movie> GetMovies()
         {
             return movies.Select(movie => SetMovieRatings(movie))
-                            .Select(movie => SetDirector(movie)).ToList(); ;
+                            .Select(movie => SetDirector(movie)).ToList();
         }
 
         public int Save(Movie movie)
