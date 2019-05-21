@@ -38,7 +38,7 @@ namespace CoderGirl_MVCMovies.Controllers
             }
             if (movie.Year < 1888 || movie.Year > DateTime.Now.Year) 
             {
-                ModelState.AddModelError("Year", "Year is not valid"); 
+                ModelState.AddModelError("Year", "Not a valid year"); 
             }
             if (ModelState.ErrorCount>0)
             {
