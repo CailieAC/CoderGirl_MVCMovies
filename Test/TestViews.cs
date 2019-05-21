@@ -172,7 +172,8 @@ namespace Test
         {
             //navigate to /director/create and submit invalid form
             driver.Url = BASE_URL + "/director/create";
-            driver.FindElementByName("Name").SendKeys("");
+            driver.FindElementByName("FirstName").SendKeys("");
+            driver.FindElementByName("LastName").SendKeys("");
             var nationalityInput = driver.FindElementByName("Nationality");
             Assert.Equal("unknown", nationalityInput.GetAttribute("value"));
             var movieForm = driver.FindElementByTagName("form");
@@ -181,8 +182,10 @@ namespace Test
 
             //verify did not leave page and error messages are set
             Assert.Equal(Uri.EscapeUriString(BASE_URL + $"/Direct/Create"), driver.Url, true);
-            var nameErrorMsgSpan = driver.FindElementsByTagName("span").Single(el => el.GetAttribute("data-valmsg-for") == "Name");
-            Assert.Equal("Name must be included", nameErrorMsgSpan.Text);
+            var firstNameErrorMsgSpan = driver.FindElementsByTagName("span").Single(el => el.GetAttribute("data-valmsg-for") == "FirstName");
+            Assert.Equal("First Name must be included", firstNameErrorMsgSpan.Text);
+            var lastNameErrorMsgSpan = driver.FindElementsByTagName("span").Single(el => el.GetAttribute("data-valmsg-for") == "LastName");
+            Assert.Equal("Last Name must be included", lastNameErrorMsgSpan.Text);
             nationalityInput = driver.FindElementsByTagName("input").Single(el => el.GetAttribute("name") == "Nationality");
             Assert.Equal("unknown", nationalityInput.GetAttribute("value"));
         }

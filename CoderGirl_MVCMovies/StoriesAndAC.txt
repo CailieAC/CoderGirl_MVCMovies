@@ -78,7 +78,8 @@ I want to validate the Movie model from /Movie/Create
 
 I want to validate the Director model from /Director/Create
 - Given I am on the /Director/Create page, the input for BirthDate should have type="date"
-- Given I am on the /Director/Create page, if I click submit without entering a name I should get a validation message "Name must be included"
+- Given I am on the /Director/Create page, if I click submit without entering a first name I should get a validation message "First Name must be included"
+- Given I am on the /Director/Create page, if I click submit without entering a last name I should get a validation message "Last Name must be included"
 - Given I am on the /Director/Create page, the default value for Nationality should be "unknown"
 - Given I am on the /Director/Create page, if I click submit and the Nationality has no value, make the value to be "unknown"
 
