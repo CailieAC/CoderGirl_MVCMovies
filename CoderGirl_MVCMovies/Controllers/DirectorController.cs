@@ -28,6 +28,25 @@ namespace CoderGirl_MVCMovies.Controllers
         [HttpPost]
         public IActionResult Create(Director director)
         {
+            if (String.IsNullOrWhiteSpace(director.FirstName))
+            {
+                ModelState.AddModelError("FirstName", "First Name must be included");
+            }
+            if (String.IsNullOrWhiteSpace(director.LastName))
+            {
+                ModelState.AddModelError("LastName", "Last Name must be included");
+            }
+            //if (String.IsNullOrWhiteSpace(director.Nationality))
+            //{
+            //    director.Nationality = "unknown";
+            //}
+            if (ModelState.ErrorCount > 0)
+            {
+                //Have to give them the directors again
+                ViewBag.Directors = directorRepository.GetDirectors();
+                return View(director);
+            }
+
             directorRepository.Save(director);
             return RedirectToAction(actionName: nameof(Index));
         }

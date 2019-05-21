@@ -181,7 +181,7 @@ namespace Test
             movieSubmit.Click();
 
             //verify did not leave page and error messages are set
-            Assert.Equal(Uri.EscapeUriString(BASE_URL + $"/Direct/Create"), driver.Url, true);
+            Assert.Equal(Uri.EscapeUriString(BASE_URL + $"/Director/Create"), driver.Url, true);
             var firstNameErrorMsgSpan = driver.FindElementsByTagName("span").Single(el => el.GetAttribute("data-valmsg-for") == "FirstName");
             Assert.Equal("First Name must be included", firstNameErrorMsgSpan.Text);
             var lastNameErrorMsgSpan = driver.FindElementsByTagName("span").Single(el => el.GetAttribute("data-valmsg-for") == "LastName");
