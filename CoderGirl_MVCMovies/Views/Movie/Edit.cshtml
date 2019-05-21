@@ -17,9 +17,19 @@
             </div>
             <div class="form-group">
                 <label asp-for="DirectorName" class="control-label"></label>
-                <input asp-for="DirectorName" class="form-control" value="@Model.DirectorName" />
+                <select asp-for="DirectorId" class="form-control" value="@Model.DirectorId">
+                    @foreach (var director in ViewBag.Directors)
+                    {
+                        <option value="@director.Id">@director.FullName</option>
+                    }
+                </select>
                 <span asp-validation-for="DirectorName" class="text-danger"></span>
             </div>
+            @*<div class="form-group">
+                <label asp-for="DirectorName" class="control-label"></label>
+                <input asp-for="DirectorName" class="form-control" value="@Model.DirectorName" />
+                <span asp-validation-for="DirectorName" class="text-danger"></span>
+            </div>*@
             <div class="form-group">
                 <label asp-for="Year" class="control-label"></label>
                 <input asp-for="Year" class="form-control" value="@Model.Year" />
