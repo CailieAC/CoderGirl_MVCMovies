@@ -21,8 +21,8 @@ namespace CoderGirl_MVCMovies.Data
         public Movie GetById(int id)
         {
             Movie movie = movies.SingleOrDefault(m => m.Id == id);
-            movie = SetDirector(movie);
             movie = SetMovieRatings(movie);
+            movie = SetDirector(movie);
             return movie;
         }
 
@@ -52,11 +52,6 @@ namespace CoderGirl_MVCMovies.Data
                                                 .Select(rating => rating.Rating)
                                                 .ToList();
             movie.Ratings = ratings;
-            if(movie.Ratings.Count != 0)
-            {
-                movie.AverageRating = movie.Ratings.Average();
-                movie.NumberOfRatings = movie.Ratings.Count();
-            }
             return movie;
         }
 
