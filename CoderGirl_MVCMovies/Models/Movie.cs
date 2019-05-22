@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace CoderGirl_MVCMovies.Models
 {
-    public class Movie
+    public class Movie : IModel
     {
         public int Id { set; get; }
         public string Name { get; set; }

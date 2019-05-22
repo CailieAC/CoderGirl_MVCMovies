@@ -6,43 +6,25 @@ using CoderGirl_MVCMovies.Models;
 
 namespace CoderGirl_MVCMovies.Data
 {
-    public class MovieRepository : IMovieRespository
+    public class MovieRepository : BaseRepository
     {
-        static List<Movie> movies = new List<Movie>();
-        static int nextId = 1;
         static IMovieRatingRepository ratingRepository = RepositoryFactory.GetMovieRatingRepository();
         static IDirectorRepository directorRepository = RepositoryFactory.GetDirectorRepository();
 
-        public void Delete(int id)
+        public override IModel GetById(int id)
         {
-            movies.RemoveAll(m => m.Id == id);
-        }
-
-        public Movie GetById(int id)
-        {
-            Movie movie = movies.SingleOrDefault(m => m.Id == id);
+            //Movie movie = models.SingleOrDefault(m => m.Id == id);
+            //must cast IModel returned by GetById to Movie class
+            Movie movie = (Movie)base.GetById(id);
             movie = SetMovieRatings(movie);
             movie = SetDirectorName(movie);
             return movie;
         }
 
-        public List<Movie> GetMovies()
+        public override List<IModel> GetModels()
         {
-            return movies.Select(movie => SetMovieRatings(movie))
+            return models.Select(movie => SetMovieRatings(movie))
                 .Select(movie => SetDirectorName(movie)).ToList();
-        }
-
-        public int Save(Movie movie)
-        {
-            movie.Id = nextId++;
-            movies.Add(movie);
-            return movie.Id;
-        }
-
-        public void Update(Movie movie)
-        {
-            this.Delete(movie.Id);
-            movies.Add(movie);
         }
 
         private Movie SetMovieRatings(Movie movie)
