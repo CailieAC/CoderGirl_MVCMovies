@@ -8,6 +8,8 @@ namespace CoderGirl_MVCMovies.Data
 {
     public interface IDirectorRepository
     {
+        //TODO could delete these three repositories, or test how you could integrate and still use them
+
         int Save(Director director);
 
         List<Director> GetDirectors();

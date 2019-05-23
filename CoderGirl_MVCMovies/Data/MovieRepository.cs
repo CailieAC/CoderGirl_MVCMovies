@@ -6,23 +6,27 @@ using CoderGirl_MVCMovies.Models;
 
 namespace CoderGirl_MVCMovies.Data
 {
-    public class MovieRepository : BaseRepository
+    internal class MovieRepository : BaseRepository
     {
-        static IMovieRatingRepository ratingRepository = RepositoryFactory.GetMovieRatingRepository();
-        static IDirectorRepository directorRepository = RepositoryFactory.GetDirectorRepository();
+        static IRepository ratingRepository = RepositoryFactory.GetMovieRatingRepository();
+        static IRepository directorRepository = RepositoryFactory.GetDirectorRepository();
 
         public override IModel GetById(int id)
         {
             //Movie movie = models.SingleOrDefault(m => m.Id == id);
-            //must cast IModel returned by GetById to Movie class
+            //must cast IModel returned by GetById to Movie class to complete the rest of the code
+            //base is asking the parent for it's code when you're in a child class
             Movie movie = (Movie)base.GetById(id);
             movie = SetMovieRatings(movie);
             movie = SetDirectorName(movie);
+            //can return movie type, since it's also an IModel type
             return movie;
         }
 
         public override List<IModel> GetModels()
         {
+            //need to cast, but it's a list, so it's different than above - there is a linq method called cast
+            //see link to explanation from David
             return models.Select(movie => SetMovieRatings(movie))
                 .Select(movie => SetDirectorName(movie)).ToList();
         }

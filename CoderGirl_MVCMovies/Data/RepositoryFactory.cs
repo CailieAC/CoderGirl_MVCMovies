@@ -7,25 +7,28 @@ namespace CoderGirl_MVCMovies.Data
 {
     public static class RepositoryFactory
     {
-        private static IMovieRatingRepository movieRatingRepository;
-        private static IMovieRepository movieRepository;
-        private static IDirectorRepository directorRepository;
+        //private static IMovieRatingRepository movieRatingRepository;
+        //private static IMovieRepository movieRepository;
+        //private static IDirectorRepository directorRepository;
+        private static IRepository movieRatingRepository;
+        private static IRepository movieRepository;
+        private static IRepository directorRepository;
 
-        public static IMovieRatingRepository GetMovieRatingRepository()
+        public static IRepository GetMovieRatingRepository()
         {
             if (movieRatingRepository == null)
                 movieRatingRepository = new MovieRatingRepository();
             return movieRatingRepository;
         }
 
-        public static IMovieRepository GetMovieRepository()
+        public static IRepository GetMovieRepository()
         {
             if (movieRepository == null)
                 movieRepository = new MovieRepository();
             return movieRepository;
         }
 
-        public static IDirectorRepository GetDirectorRepository()
+        public static IRepository GetDirectorRepository()
         {
             if (directorRepository == null)
                 directorRepository = new DirectorRepository();

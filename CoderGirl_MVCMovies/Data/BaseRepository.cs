@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 
 namespace CoderGirl_MVCMovies.Data
 {
-    public class BaseRepository
+    public class BaseRepository : IRepository
     {
         protected List<IModel> models = new List<IModel>();
         protected static int nextId = 1;
+
+        //could make these all virtual, and override them, then go and change as you go
 
         public void Delete(int id)
         {
