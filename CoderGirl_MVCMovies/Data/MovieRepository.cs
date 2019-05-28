@@ -25,16 +25,24 @@ namespace CoderGirl_MVCMovies.Data
 
         public override List<IModel> GetModels()
         {
-            //need to cast, but it's a list, so it's different than above - there is a linq method called cast
+            //TODO need to cast, but it's a list, so it's different than above - there is a linq method called cast
             //see link to explanation from David
+            /*
             return models.Select(movie => SetMovieRatings(movie))
                 .Select(movie => SetDirectorName(movie)).ToList();
+            */
+            
+            //List<Director> directors = directorRepository.GetModels().Cast<Director>().ToList();
+            List<Movie> movies = models.Select(movie => SetMovieRatings((Movie)movie))
+                .Select(movie => SetDirectorName(movie)).ToList();
+            return movies.Cast<IModel>().ToList();
+            
         }
 
         private Movie SetMovieRatings(Movie movie)
         {
             List<int> ratings = ratingRepository.GetModels()
-                                                .Where(rating => rating.Id == movie.Id)
+                                                .Where(rating => rating.Id == movie.Id).Cast<MovieRating>()
                                                 .Select(rating => rating.Rating)
                                                 .ToList();
             movie.Ratings = ratings;
