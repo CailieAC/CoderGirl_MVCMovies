@@ -10,7 +10,7 @@ namespace CoderGirl_MVCMovies.Controllers
 {
     public class MovieController : Controller
     {
-        //TODO: Go through and convert all the repository references to IRepository like this
+        //Convert all the repository references to IRepository like this
         static IModelRepository movieRepository = RepositoryFactory.GetMovieRepository();
         static IModelRepository directorRepository = RepositoryFactory.GetDirectorRepository();
 
@@ -32,7 +32,6 @@ namespace CoderGirl_MVCMovies.Controllers
         {
             //Server side validation can take place in Post. Or can go in the Movie Model.
             //Should probably go in Movie Model in the future.
-            //TODO: Figure out if user not entering a movie name be null or empty?
             if (String.IsNullOrWhiteSpace(movie.Name))
             {
                 ModelState.AddModelError("Name", "Name must be included");
