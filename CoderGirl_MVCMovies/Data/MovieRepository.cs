@@ -6,10 +6,10 @@ using CoderGirl_MVCMovies.Models;
 
 namespace CoderGirl_MVCMovies.Data
 {
-    internal class MovieRepository : BaseRepository
+    internal class MovieRepository : ModelRepository
     {
-        static IRepository ratingRepository = RepositoryFactory.GetMovieRatingRepository();
-        static IRepository directorRepository = RepositoryFactory.GetDirectorRepository();
+        static IModelRepository ratingRepository = RepositoryFactory.GetMovieRatingRepository();
+        static IModelRepository directorRepository = RepositoryFactory.GetDirectorRepository();
 
         public override IModel GetById(int id)
         {

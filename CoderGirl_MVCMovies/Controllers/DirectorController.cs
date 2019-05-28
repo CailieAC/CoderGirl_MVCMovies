@@ -10,12 +10,13 @@ namespace CoderGirl_MVCMovies.Controllers
 {
     public class DirectorController : Controller
     {
-        private IDirectorRepository directorRepository = RepositoryFactory.GetDirectorRepository();
+        //private IDirectorRepository directorRepository = RepositoryFactory.GetDirectorRepository();
+        static IModelRepository directorRepository = RepositoryFactory.GetDirectorRepository();
 
         [HttpGet]
         public IActionResult Index()
         {
-            List<Director> directors = directorRepository.GetDirectors();
+            List<Director> directors = directorRepository.GetModels().Cast<Director>().ToList();
             return View(directors);
         }
 
@@ -43,7 +44,7 @@ namespace CoderGirl_MVCMovies.Controllers
             if (ModelState.ErrorCount > 0)
             {
                 //Have to give them the directors again
-                ViewBag.Directors = directorRepository.GetDirectors();
+                ViewBag.Directors = directorRepository.GetModels();
                 return View(director);
             }
 

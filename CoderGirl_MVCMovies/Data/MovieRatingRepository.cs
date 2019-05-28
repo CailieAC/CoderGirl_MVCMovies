@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 
 namespace CoderGirl_MVCMovies.Data
 {
-    public class MovieRatingRepository : BaseRepository
+    public class MovieRatingRepository : ModelRepository
     {
-        
+        public List<MovieRating> GetMovieRatings()
+        {
+
+            return 
+        }
     }
 }

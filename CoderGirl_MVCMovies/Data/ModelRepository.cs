@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CoderGirl_MVCMovies.Data
 {
-    public class BaseRepository : IRepository
+    public class ModelRepository : IModelRepository
     {
         protected List<IModel> models = new List<IModel>();
         protected static int nextId = 1;

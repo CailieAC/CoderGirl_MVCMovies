@@ -11,8 +11,8 @@ namespace CoderGirl_MVCMovies.Controllers
     public class MovieController : Controller
     {
         //TODO: Go through and convert all the repository references to IRepository like this
-        static IRepository movieRepository = RepositoryFactory.GetMovieRepository();
-        static IRepository directorRepository = RepositoryFactory.GetDirectorRepository();
+        static IModelRepository movieRepository = RepositoryFactory.GetMovieRepository();
+        static IModelRepository directorRepository = RepositoryFactory.GetDirectorRepository();
 
         public IActionResult Index()
         {
@@ -23,7 +23,7 @@ namespace CoderGirl_MVCMovies.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            ViewBag.Directors = directorRepository.GetDirectors();
+            ViewBag.Directors = directorRepository.GetModels();
             return View();
         }
 
@@ -44,7 +44,7 @@ namespace CoderGirl_MVCMovies.Controllers
             if (ModelState.ErrorCount>0)
             {
                 //Have to give them the directors again
-                ViewBag.Directors = directorRepository.GetDirectors();
+                ViewBag.Directors = directorRepository.GetModels();
                 return View(movie);
             }
 
@@ -55,7 +55,10 @@ namespace CoderGirl_MVCMovies.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            Movie movie = movieRepository.GetById(id);
+            //List<Movie> movies = movieRepository.GetModels().Cast<Movie>().ToList();
+            //Movie movie = movieRepository.GetById(id);
+            //TODO: Not sure if below is correct? Should be casting to Movie?
+            IModel movie = movieRepository.GetById(id);
             return View(movie);
         }
 
