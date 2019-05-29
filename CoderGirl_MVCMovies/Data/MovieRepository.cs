@@ -31,12 +31,13 @@ namespace CoderGirl_MVCMovies.Data
             return models.Select(movie => SetMovieRatings(movie))
                 .Select(movie => SetDirectorName(movie)).ToList();
             */
-            
+
             //List<Director> directors = directorRepository.GetModels().Cast<Director>().ToList();
-            List<Movie> movies = models.Select(movie => SetMovieRatings((Movie)movie))
+
+            List<Movie> movies = models.Cast<Movie>().Select(movie => SetMovieRatings(movie))
                 .Select(movie => SetDirectorName(movie)).ToList();
+
             return movies.Cast<IModel>().ToList();
-            
         }
 
         private Movie SetMovieRatings(Movie movie)
@@ -51,7 +52,7 @@ namespace CoderGirl_MVCMovies.Data
 
         private Movie SetDirectorName(Movie movie)
         {
-            Director director = directorRepository.GetById(movie.Id);
+            Director director = (Director)directorRepository.GetById(movie.Id);
             movie.DirectorName = director.FullName;
             return movie;
         }

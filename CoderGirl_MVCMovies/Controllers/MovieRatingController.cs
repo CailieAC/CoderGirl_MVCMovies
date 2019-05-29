@@ -17,14 +17,20 @@ namespace CoderGirl_MVCMovies.Controllers
 
         public IActionResult Index()
         {
-            List<MovieRating> movieRatings = ratingRepository.GetMovieRatings();
+            List<MovieRating> movieRatings = ratingRepository.GetModels().Cast<MovieRating>().ToList();
             return View(movieRatings);
         }
 
         [HttpGet]
         public IActionResult Create(int movieId)
         {
-            string movieName = movieRespository.GetById(movieId).Name;
+            /* EXAMPLES of Casting for reference
+            List<Movie> movies = models.Select(movie => SetMovieRatings((Movie)movie))
+                .Select(movie => SetDirectorName(movie)).ToList();
+            return movies.Cast<IModel>().ToList();
+            */
+            Movie movie = (Movie)movieRespository.GetById(movieId);
+            string movieName = movie.Name;
             MovieRating movieRating = new MovieRating();
             movieRating.MovieId = movieId;
             movieRating.MovieName = movieName;
@@ -41,7 +47,7 @@ namespace CoderGirl_MVCMovies.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            MovieRating movieRating = ratingRepository.GetById(id);
+            MovieRating movieRating = (MovieRating)ratingRepository.GetById(id);
             return View(movieRating);
         }
 
