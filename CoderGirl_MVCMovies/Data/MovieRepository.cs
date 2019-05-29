@@ -20,7 +20,7 @@ namespace CoderGirl_MVCMovies.Data
             movie = SetMovieRatings(movie);
             movie = SetDirectorName(movie);
             //can return movie type, since it's also an IModel type
-            return movie;
+            return (IModel)movie;
         }
 
         public override List<IModel> GetModels()
@@ -31,7 +31,6 @@ namespace CoderGirl_MVCMovies.Data
             return models.Select(movie => SetMovieRatings(movie))
                 .Select(movie => SetDirectorName(movie)).ToList();
             */
-
             //List<Director> directors = directorRepository.GetModels().Cast<Director>().ToList();
 
             List<Movie> movies = models.Cast<Movie>().Select(movie => SetMovieRatings(movie))
@@ -43,7 +42,7 @@ namespace CoderGirl_MVCMovies.Data
         private Movie SetMovieRatings(Movie movie)
         {
             List<int> ratings = ratingRepository.GetModels().Cast<MovieRating>()
-                                                .Where(rating => rating.Id == movie.Id)
+                                                .Where(rating => rating.MovieId == movie.Id)
                                                 .Select(rating => rating.Rating)
                                                 .ToList();
             movie.Ratings = ratings;
