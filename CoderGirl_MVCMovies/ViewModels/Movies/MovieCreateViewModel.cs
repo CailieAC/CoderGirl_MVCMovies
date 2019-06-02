@@ -31,7 +31,7 @@ namespace CoderGirl_MVCMovies.ViewModels.Movies
 
         public void Persist()
         {
-            Movie movie = new Movie
+            Models.Movie movie = new Models.Movie
             {
                 Name = this.Name,
                 DirectorId = this.DirectorId,
