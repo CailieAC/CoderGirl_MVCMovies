@@ -1,4 +1,4 @@
-﻿@model CoderGirl_MVCMovies.ViewModels.Movies.MovieCreateViewModel
+﻿@model CoderGirl_MVCMovies.ViewModels.Movie.MovieCreateViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -22,7 +22,7 @@
                 <select asp-for="DirectorId">
                     @foreach (var director in Model.Directors)
                     {
-                         <option value="@director.Id">@director.FullName</option>
+                        <option value="@director.Id">@director.FullName</option>
                     }
                 </select>
                 <span asp-validation-for="DirectorId" class="text-danger"></span>

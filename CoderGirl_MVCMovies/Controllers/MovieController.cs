@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CoderGirl_MVCMovies.Data;
 using CoderGirl_MVCMovies.Models;
-using CoderGirl_MVCMovies.ViewModels.Movies;
+using CoderGirl_MVCMovies.ViewModels.Movie;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CoderGirl_MVCMovies.Controllers
@@ -16,6 +16,9 @@ namespace CoderGirl_MVCMovies.Controllers
 
         public IActionResult Index()
         {
+            //keep this as a list passing in, but pass in a list of like MovieListViewModel
+            //or MovieIndexViewModel. Should only include the info we are displaying in the table
+            //table has director name, but not id. 
             List<Movie> movies = movieRepository.GetModels().Cast<Movie>().ToList();
             return View(movies);
         }
@@ -46,6 +49,7 @@ namespace CoderGirl_MVCMovies.Controllers
             }
 
             model.Persist();
+            //movieRepository.Save(model);
             return RedirectToAction(actionName: nameof(Index));
         }
 
@@ -70,6 +74,7 @@ namespace CoderGirl_MVCMovies.Controllers
         [HttpGet]
         public IActionResult Delete(int id)
         {
+            //Don't need a view model for this because there isn't an actual page view for Delete
             movieRepository.Delete(id);
             return RedirectToAction(actionName: nameof(Index));
         }
