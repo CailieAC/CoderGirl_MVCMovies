@@ -11,16 +11,20 @@ namespace CoderGirl_MVCMovies.ViewModels.Movies
     {
         public static MovieCreateViewModel GetMovieCreateViewModel()
         {
+            //MovieCreateViewModel viewModel = new MovieCreateViewModel();
             List<Director> directors = RepositoryFactory.GetDirectorRepository()
                 .GetModels()
                 .Cast<Director>()
                 .ToList();
+            //viewModel.Directors = directors;
+            //return viewModel;
             return new MovieCreateViewModel(directors);
         }
 
 
         public string Name { get; set; }
         public int DirectorId { get; set; }
+        //Later we will change this to not be of type Director
         public List<Director> Directors { get; set; }
         public int Year { get; set; }
         
@@ -29,6 +33,7 @@ namespace CoderGirl_MVCMovies.ViewModels.Movies
             this.Directors = directors;
         }
 
+        //can do this or make a constructor in the Movie Model
         public void Persist()
         {
             Models.Movie movie = new Models.Movie
