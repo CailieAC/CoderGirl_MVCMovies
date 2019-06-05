@@ -26,8 +26,8 @@ namespace CoderGirl_MVCMovies.ViewModels.Movies
         public int DirectorId { get; set; }
         //Later we will change this to not be of type Director
         public List<Director> Directors { get; set; }
-        public int Year { get; set; }
-        
+        public int Year { get; set; }        
+
         private MovieCreateViewModel(List<Director> directors)
         {
             this.Directors = directors;
