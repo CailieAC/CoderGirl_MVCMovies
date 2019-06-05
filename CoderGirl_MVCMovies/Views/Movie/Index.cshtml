@@ -1,4 +1,9 @@
-﻿@model List<CoderGirl_MVCMovies.Models.Movie>
+﻿
+@*@model List<CoderGirl_MVCMovies.Models.Movie>*@
+<!-- Copied IEnumerable model format below from Director Index example
+    Not sure why-->
+@model IEnumerable<CoderGirl_MVCMovies.ViewModels.Movies.MovieListItemViewModel>
+
 
 @{
     ViewData["Title"] = "Movies";
@@ -8,7 +13,7 @@
 <a asp-controller="Movie" asp-action="Create">Add New Movie</a>
 <table>
     <tr>
-        <th>Movie Name</th>
+        <th>@Html.DisplayNameFor(model => model.Name)</th>
         <th>Director</th>
         <th>Year</th>
         <th>Average Rating</th>
@@ -16,22 +21,22 @@
     </tr>
     @foreach (var movie in Model)
     {
-    <tr id="@movie.Id">
-        <td>@movie.Name</td>
-        <td>@movie.DirectorName</td>
-        <td>@movie.Year</td>
-        @if (movie.Ratings.Count > 0)
-        {
-            <td>@movie.Ratings.Average()</td>
-        }
-        else
-        {
-            <td>none</td>
-        }
-        <td>@movie.Ratings.Count</td>
-        <td><a asp-controller="Movie" asp-action="Edit" asp-route-id="@movie.Id">Edit</a></td>
-        <td><a asp-controller="Movie" asp-action="Delete" asp-route-id="@movie.Id">Delete</a></td>
-        <td><a asp-controller="MovieRating" asp-action="Create" asp-route-movieId="@movie.Id">Rate</a></td>
-    </tr>
+        <tr id="@movie.Id">
+            <td>@movie.Name</td>
+            <td>@movie.DirectorName</td>
+            <td>@movie.Year</td>
+            @if (movie.Ratings.Count > 0)
+            {
+                <td>@movie.Ratings.Average()</td>
+            }
+            else
+            {
+                <td>none</td>
+            }
+            <td>@movie.Ratings.Count</td>
+            <td><a asp-controller="Movie" asp-action="Edit" asp-route-id="@movie.Id">Edit</a></td>
+            <td><a asp-controller="Movie" asp-action="Delete" asp-route-id="@movie.Id">Delete</a></td>
+            <td><a asp-controller="MovieRating" asp-action="Create" asp-route-movieId="@movie.Id">Rate</a></td>
+        </tr>
     }
 </table>
