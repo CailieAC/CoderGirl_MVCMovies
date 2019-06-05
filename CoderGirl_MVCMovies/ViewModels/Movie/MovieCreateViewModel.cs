@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CoderGirl_MVCMovies.ViewModels.Movies
+namespace CoderGirl_MVCMovies.ViewModels.Movie
 {
     public class MovieCreateViewModel
     {
@@ -20,7 +20,6 @@ namespace CoderGirl_MVCMovies.ViewModels.Movies
             //return viewModel;
             return new MovieCreateViewModel(directors);
         }
-
 
         public string Name { get; set; }
         public int DirectorId { get; set; }

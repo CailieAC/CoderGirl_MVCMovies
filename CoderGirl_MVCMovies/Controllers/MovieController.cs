@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CoderGirl_MVCMovies.Data;
 using CoderGirl_MVCMovies.Models;
-using CoderGirl_MVCMovies.ViewModels.Movies;
+using CoderGirl_MVCMovies.ViewModels.Movie;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CoderGirl_MVCMovies.Controllers
