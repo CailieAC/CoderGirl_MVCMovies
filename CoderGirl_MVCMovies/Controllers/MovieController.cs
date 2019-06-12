@@ -12,8 +12,8 @@ namespace CoderGirl_MVCMovies.Controllers
 {
     public class MovieController : Controller
     {
-        static IRepository movieRepository = RepositoryFactory.GetMovieRepository();
-        static IRepository directorRepository = RepositoryFactory.GetDirectorRepository();
+        static IRepository<Movie> movieRepository = RepositoryFactory.GetMovieRepository();
+        static IRepository<Director> directorRepository = RepositoryFactory.GetDirectorRepository();
 
         public IActionResult Index()
         {

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace CoderGirl_MVCMovies.Data
 {
-    public class BaseRepository : IRepository
+    public class BaseRepository<T> : IRepository<T>
     {
-        protected List<IModel> models = new List<IModel>();
+        protected List<T> models = new List<T>();
         protected int nextId = 1;
 
         public void Delete(int id)
@@ -21,7 +21,7 @@ namespace CoderGirl_MVCMovies.Data
             return models.SingleOrDefault(d => d.Id == id);
         }
 
-        public virtual List<IModel> GetModels()
+        public virtual List<T> GetModels()
         {
             return models;
         }

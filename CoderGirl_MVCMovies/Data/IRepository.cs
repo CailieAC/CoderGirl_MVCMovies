@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CoderGirl_MVCMovies.Data
 {
-    public interface IRepository
+    public interface IRepository<T> where T : IModel
     {
         IModel GetById(int id);
         List<IModel> GetModels();
