@@ -13,6 +13,7 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
+                @* Add List of Movies Here *@
                 <label asp-for="MovieName" class="control-label"></label>
                 <input asp-for="MovieName" class="form-control" />
                 <span asp-validation-for="MovieName" class="text-danger"></span>

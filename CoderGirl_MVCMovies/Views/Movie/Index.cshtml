@@ -21,7 +21,8 @@
             <th>
                 @Html.DisplayNameFor(model => model.Year)
             </th>
-            <th></th>
+            <th>Average Rating</th>
+            <th>Number of Ratings</th>
         </tr>
     </thead>
     <tbody>
@@ -36,10 +37,30 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Year)
             </td>
+            @*@if (movie.Ratings.Count > 0)
+            {
+                <td>@movie.Ratings.Average()</td>
+            }
+            else
+            {
+                <td>none</td>
+            }
+            <td>@movie.Ratings.Count</td>*@
+            <td>
+                @*TODO: change below to averagerating *@
+                @Html.DisplayFor(modelItem => item.Year)
+            </td>
+            <td>
+                @*TODO: change below to number of rating *@
+                @Html.DisplayFor(modelItem => item.Year)
+            </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                 @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })  |
+                @* make below link go to movierating controller*@
+                @Html.ActionLink("Rate Movie", "Create", "MovieRating", new { movieId = item.Id }, null)
+                @*<a asp-controller="MovieRating" asp-action="Create" asp-route-movieId="@Model.Id">Rate</a>*@
             </td>
         </tr>
 }

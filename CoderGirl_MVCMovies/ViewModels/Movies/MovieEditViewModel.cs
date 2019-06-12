@@ -53,6 +53,7 @@ namespace CoderGirl_MVCMovies.ViewModels.Movie
                 Id = id,
                 Name = this.Name,
                 DirectorName = this.DirectorName,
+                DirectorId = this.DirectorId,
                 Year = this.Year
             };
             RepositoryFactory.GetMovieRepository().Update(movie);
