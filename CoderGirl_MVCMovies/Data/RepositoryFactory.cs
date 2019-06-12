@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CoderGirl_MVCMovies.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,25 +8,25 @@ namespace CoderGirl_MVCMovies.Data
 {
     public static class RepositoryFactory
     {
-        private static IRepository movieRatingRepository;
-        private static IRepository movieRepository;
-        private static IRepository directorRepository;
+        private static BaseRepository<MovieRating> movieRatingRepository;
+        private static BaseRepository<Movie> movieRepository;
+        private static BaseRepository<Director> directorRepository;
 
-        public static IRepository GetMovieRatingRepository()
+        public static BaseRepository<MovieRating> GetMovieRatingRepository()
         {
             if (movieRatingRepository == null)
-                movieRatingRepository = new MovieRatingRepository();
+                movieRatingRepository = new BaseRepository<MovieRating>();
             return movieRatingRepository;
         }
 
-        public static IRepository GetMovieRepository()
+        public static IRepository<Movie> GetMovieRepository()
         {
             if (movieRepository == null)
                 movieRepository = new MovieRepository();
             return movieRepository;
         }
 
-        public static IRepository GetDirectorRepository()
+        public static IRepository<Director> GetDirectorRepository()
         {
             if (directorRepository == null)
                 directorRepository = new DirectorRepository();
