@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CoderGirl_MVCMovies.Data;
 using CoderGirl_MVCMovies.Models;
+using CoderGirl_MVCMovies.ViewModels.MovieRating;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CoderGirl_MVCMovies.Controllers
@@ -15,40 +16,41 @@ namespace CoderGirl_MVCMovies.Controllers
 
        public IActionResult Index()
         {
-            List<MovieRating> movieRatings = ratingRepository.GetModels().Cast<MovieRating>().ToList();
+            var movieRatings = MovieRatingListItemViewModel.GetMovieRatingList();
             return View(movieRatings);
         }
 
         [HttpGet]
         public IActionResult Create(int movieId)
         {
-            var movie = (Movie)movieRespository.GetById(movieId);
+            /*var movie = (Movie)movieRespository.GetById(movieId);
             string movieName = movie.Name;
             MovieRating movieRating = new MovieRating();
             movieRating.MovieId = movieId;
             movieRating.MovieName = movieName;
             return View(movieRating);
+            */
+            return View();
         }
 
         [HttpPost]
-        public IActionResult Create(int movieId, MovieRating movieRating)
+        public IActionResult Create(MovieRatingCreateViewModel model)
         {
-            ratingRepository.Save(movieRating);
+            model.Persist();
             return RedirectToAction(controllerName: nameof(Movie), actionName: nameof(Index));
         }
 
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            MovieRating movieRating = (MovieRating)ratingRepository.GetById(id);
-            return View(movieRating);
+            MovieRatingEditViewModel model = MovieRatingEditViewModel.GetModel(id);
+            return View(model);
         }
 
         [HttpPost]
-        public IActionResult Edit(int id, MovieRating movieRating)
+        public IActionResult Edit(int id, MovieRatingEditViewModel model)
         {
-            movieRating.Id = id;
-            ratingRepository.Update(movieRating);
+            model.Persist(id);
             return RedirectToAction(actionName: nameof(Index));
         }
 

@@ -36,6 +36,7 @@ namespace CoderGirl_MVCMovies.ViewModels.Movie
             viewModel.DirectorName = movie.DirectorName;
             viewModel.Year = movie.Year;
             viewModel.DirectorId = movie.DirectorId;
+
             return viewModel;
         }
 

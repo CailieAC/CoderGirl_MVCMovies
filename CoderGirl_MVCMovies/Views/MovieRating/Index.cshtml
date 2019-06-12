@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CoderGirl_MVCMovies.ViewModels.Movies.MovieListItemViewModel>
+﻿@model IEnumerable<CoderGirl_MVCMovies.ViewModels.MovieRating.MovieRatingListItemViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,31 +13,25 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayNameFor(model => model.MovieName)
             </th>
             <th>
-                Director
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Year)
+                @Html.DisplayNameFor(model => model.MovieRating)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr id="@Html.DisplayFor(modelItem => item.Id)">
+        <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                @Html.DisplayFor(modelItem => item.MovieName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DirectorName)
+                @Html.DisplayFor(modelItem => item.MovieRating)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Year)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
                 @Html.ActionLink("Details", "Details", new { id = item.Id }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.Id })
             </td>

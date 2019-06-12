@@ -20,7 +20,8 @@ namespace CoderGirl_MVCMovies.Controllers
             //keep this as a list passing in, but pass in a list of like MovieListViewModel
             //or MovieIndexViewModel. Should only include the info we are displaying in the table
             //table has director name, but not id. 
-            List<Movie> movies = movieRepository.GetModels().Cast<Movie>().ToList();
+
+            /*List<Movie> movies = movieRepository.GetModels().Cast<Movie>().ToList();
             List<MovieListItemViewModel> models = new List<MovieListItemViewModel>();
 
             foreach (Movie movie in movies)
@@ -33,8 +34,10 @@ namespace CoderGirl_MVCMovies.Controllers
                 newModel.Ratings = movie.Ratings;
                 models.Add(newModel);
             }
+            return View(models); */
 
-            return View(models);
+            var movies = MovieListItemViewModel.GetMovieList();
+            return View(movies);
         }
 
         [HttpGet]
@@ -53,7 +56,7 @@ namespace CoderGirl_MVCMovies.Controllers
             }
             if(model.Year < 1888 || model.Year > DateTime.Now.Year)
             {
-                ModelState.AddModelError("Year", "Year is not valid");
+                ModelState.AddModelError("Year", "Not a valid year");
             }
 
             if(ModelState.ErrorCount > 0)

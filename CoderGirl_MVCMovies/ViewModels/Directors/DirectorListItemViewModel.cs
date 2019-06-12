@@ -2,6 +2,7 @@
 using CoderGirl_MVCMovies.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -30,7 +31,10 @@ namespace CoderGirl_MVCMovies.ViewModels.Directors
         }
 
         public int Id { get; set; }
+
+        [Display(Name="Name")]
         public string FullName { get; set; }
+        [Display(Name = "Birth Date")]
         public string BirthDate { get; set; }
         public string Nationality { get; set; }
     }
