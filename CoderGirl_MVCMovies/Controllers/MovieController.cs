@@ -21,14 +21,16 @@ namespace CoderGirl_MVCMovies.Controllers
             //or MovieIndexViewModel. Should only include the info we are displaying in the table
             //table has director name, but not id. 
             List<Movie> movies = movieRepository.GetModels().Cast<Movie>().ToList();
+            
+            //New: List<MovieListItemViewModel> movies = movieRepository.GetModels().Cast<Movie>().ToList();
             return View(movies);
         }
 
         [HttpGet]
         public IActionResult Create()
         {
-            MovieCreateViewModel model = MovieCreateViewModel.GetMovieCreateViewModel();
-            return View(model);
+            MovieCreateViewModel viewModel = MovieCreateViewModel.GetMovieCreateViewModel();
+            return View(viewModel);
         }
 
         [HttpPost]
@@ -48,9 +50,9 @@ namespace CoderGirl_MVCMovies.Controllers
                 model.Directors = directorRepository.GetModels().Cast<Director>().ToList();
                 return View(model);
             }
-
-            model.Persist();
+ 
             //movieRepository.Save(model);
+            model.Persist();
             return RedirectToAction(actionName: nameof(Index));
         }
 
@@ -59,6 +61,8 @@ namespace CoderGirl_MVCMovies.Controllers
         {
             //Movie movie = (Movie)movieRepository.GetById(id);
             //return View(movie);
+
+            //TODO constructor or factory class will need to take an Id to find the proper movie
             MovieEditViewModel model = MovieEditViewModel.GetModel(id);
             return View(model);
         }
