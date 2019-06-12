@@ -9,6 +9,13 @@ namespace CoderGirl_MVCMovies.ViewModels.Movies
 {
     public class MovieCreateViewModel
     {
+        
+        public MovieCreateViewModel()
+        {
+            
+        }
+        
+
         public static MovieCreateViewModel GetMovieCreateViewModel()
         {
             //MovieCreateViewModel viewModel = new MovieCreateViewModel();

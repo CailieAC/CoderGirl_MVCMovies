@@ -21,9 +21,20 @@ namespace CoderGirl_MVCMovies.Controllers
             //or MovieIndexViewModel. Should only include the info we are displaying in the table
             //table has director name, but not id. 
             List<Movie> movies = movieRepository.GetModels().Cast<Movie>().ToList();
-            
-            //New: List<MovieListItemViewModel> movies = movieRepository.GetModels().Cast<Movie>().ToList();
-            return View(movies);
+            List<MovieListItemViewModel> models = new List<MovieListItemViewModel>();
+
+            foreach (Movie movie in movies)
+            {
+                MovieListItemViewModel newModel = new MovieListItemViewModel();
+                newModel.Id = movie.Id;
+                newModel.Name = movie.Name;
+                newModel.DirectorName = movie.DirectorName;
+                newModel.Year = movie.Year;
+                newModel.Ratings = movie.Ratings;
+                models.Add(newModel);
+            }
+
+            return View(models);
         }
 
         [HttpGet]
