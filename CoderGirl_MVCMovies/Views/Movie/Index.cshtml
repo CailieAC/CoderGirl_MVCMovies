@@ -7,7 +7,7 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" id="add-new-movie">Add New Movie</a>
 </p>
 <table class="table">
     <thead>
@@ -27,7 +27,7 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr id="@Html.DisplayFor(modelItem => item.Id)">
+        <tr id="@item.Id)">
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
@@ -51,7 +51,7 @@
                 @Html.ActionLink("Details", "Details", new { id = item.Id }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.Id })  |
                 @* make below link go to movierating controller*@
-                @Html.ActionLink("Rate Movie", "Create", "MovieRating", new { movieId = item.Id }, null)
+                @Html.ActionLink("Rate", "Create", "MovieRating", new { movieId = item.Id }, null)
                 @*<a asp-controller="MovieRating" asp-action="Create" asp-route-movieId="@Model.Id">Rate</a>*@
             </td>
         </tr>

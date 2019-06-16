@@ -29,7 +29,6 @@ namespace CoderGirl_MVCMovies.Controllers
             //movieRating.MovieId = movieId;
             movieRating.MovieName = movieName;
             return View(movieRating);
-
         }
 
         [HttpPost]

@@ -20,7 +20,7 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr>
+        <tr id="@item.Id)">
             <td>
                 @Html.DisplayFor(modelItem => item.MovieName)
             </td>
