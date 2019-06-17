@@ -33,11 +33,27 @@ namespace CoderGirl_MVCMovies.ViewModels.Movies
 
         private static MovieListItemViewModel GetMovieListItemFromMovie(Models.Movie movie)
         {
+            //movie.Ratings = new List<int>();
+            //List<int> movieRatings = new List<int>();
+
             string average = "none";
+            int count = 0;
+            if (movie.Ratings != null)
+            {
+                if (movie.Ratings.Count > 0)
+                {
+                    average = movie.Ratings.Average().ToString();
+                }
+                count = movie.Ratings.Count;
+            }
+
+
+            /*
             if (movie.Ratings.Count > 0)
             {
                 average = movie.Ratings.Average().ToString();
             }
+            */
 
             return new MovieListItemViewModel
             {
@@ -47,7 +63,7 @@ namespace CoderGirl_MVCMovies.ViewModels.Movies
                 Year = movie.Year,
                 Ratings = movie.Ratings,
                 AverageRating = average,
-                NumberOfRatings = movie.Ratings.Count
+                NumberOfRatings = count
 
         };
             

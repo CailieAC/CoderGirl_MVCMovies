@@ -11,11 +11,14 @@ namespace CoderGirl_MVCMovies.ViewModels.MovieRating
     {
         public string MovieName { get; set; }
         public int Rating { get; set; }
+        public int Id { get; set; }
 
         public void Persist()
         {
             Models.MovieRating movieRating = new Models.MovieRating
             {
+                //added the ID below, but not sure needed?
+                Id = this.Id,
                 MovieName = this.MovieName,
                 Rating = this.Rating
             };
