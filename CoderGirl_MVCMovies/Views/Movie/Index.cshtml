@@ -37,15 +37,8 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Year)
             </td>
-            @if (item.Ratings.Count > 0)
-            {
-                <td>@item.Ratings.Average()</td>
-            }
-            else
-            {
-                <td>none</td>
-            }
-            <td>@item.Ratings.Count</td>
+            <td>@Html.DisplayFor(modelItem => item.AverageRating)</td>
+            <td>@Html.DisplayFor(modelItem => item.NumberOfRatings)</td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                 @Html.ActionLink("Details", "Details", new { id = item.Id }) |
