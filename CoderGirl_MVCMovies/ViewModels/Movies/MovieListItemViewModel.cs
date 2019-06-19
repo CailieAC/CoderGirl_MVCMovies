@@ -1,6 +1,7 @@
 ﻿using CoderGirl_MVCMovies.Data;
 using CoderGirl_MVCMovies.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -11,10 +12,11 @@ namespace CoderGirl_MVCMovies.ViewModels.Movies
 {
     public class MovieListItemViewModel
     {
-        public static List<MovieListItemViewModel> GetMovies(MoviesDbContext factory)
+        public static List<MovieListItemViewModel> GetMovies(MoviesDbContext context)
         {
-            return factory.GetMovieRepository()
-                .GetModels()
+            return context.Movies
+                .Include(m  => m.Ratings)
+                .Include(m => m.Director)
                 .Select(m => new MovieListItemViewModel(m))
                 .ToList();
         }
@@ -25,7 +27,7 @@ namespace CoderGirl_MVCMovies.ViewModels.Movies
         public string Name { get; set; }
         public int Year { get; set; }
         public string DirectorName { get; set; }
-        public double AverageRating { get; set; }
+        public string AverageRating { get; set; }
         public int NumberOfRatings { get; set; }
 
         public MovieListItemViewModel(Movie movie)
@@ -34,8 +36,13 @@ namespace CoderGirl_MVCMovies.ViewModels.Movies
             this.Name = movie.Name;
             this.Year = movie.Year;
             this.DirectorName = movie.Director.FullName;
-            this.AverageRating = Math.Round(movie.Ratings.Average(x => x.Rating), 2);
+            this.AverageRating =  GetAverageRating(movie);
             this.NumberOfRatings = movie.Ratings.Count;
+        }
+
+        private string GetAverageRating(Movie movie)
+        {
+            return movie.Ratings.Count > 0 ? Math.Round(movie.Ratings.Average(x => x.Rating), 2).ToString() : "none";
         }
     }
 }
