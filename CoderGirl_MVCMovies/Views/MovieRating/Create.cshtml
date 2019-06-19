@@ -13,6 +13,10 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
+                @* The parameters from the view pages here get passed back to the HtmlPOST *@
+                <input readonly hidden asp-for="MovieId" value="@Model.MovieId" />
+            </div>
+            <div class="form-group">
                 <input readonly asp-for="MovieName" value="@Model.MovieName" />
             </div>
             <div class="form-group">

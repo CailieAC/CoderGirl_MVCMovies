@@ -18,7 +18,7 @@ namespace CoderGirl_MVCMovies.Controllers
         public IActionResult Index()
         {
             //keep this as a list passing in, but pass in a list of like MovieListViewModel
-            //or MovieIndexViewModel. Should only include the info we are displaying in the table
+            //Should only include the info we are displaying in the table
             //table has director name, but not id. 
 
             /*List<Movie> movies = movieRepository.GetModels().Cast<Movie>().ToList();

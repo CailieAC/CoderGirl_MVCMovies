@@ -11,15 +11,15 @@ namespace CoderGirl_MVCMovies.ViewModels.MovieRating
     {
         public string MovieName { get; set; }
         public int Rating { get; set; }
-        public int Id { get; set; }
+        public int MovieId { get; set; }
 
         public void Persist()
         {
             Models.MovieRating movieRating = new Models.MovieRating
             {
-                //added the ID below, but not sure needed?
-                Id = this.Id,
+
                 MovieName = this.MovieName,
+                MovieId = this.MovieId,
                 Rating = this.Rating
             };
             RepositoryFactory.GetMovieRatingRepository().Save(movieRating);

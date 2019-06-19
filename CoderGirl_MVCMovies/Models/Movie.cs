@@ -13,5 +13,8 @@ namespace CoderGirl_MVCMovies.Models
         public int Year { get; set; }
         public List<int> Ratings { get; set; }
         public int DirectorId { get; set; }
+
+        public string AverageRating { get; set; }
+        public int NumberOfRatings { get; set; }
     }
 }

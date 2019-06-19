@@ -24,9 +24,10 @@ namespace CoderGirl_MVCMovies.Controllers
         public IActionResult Create(int movieId)
         {
             var movie = (Movie)movieRespository.GetById(movieId);
+
             string movieName = movie.Name;
             MovieRatingCreateViewModel movieRating = new MovieRatingCreateViewModel();
-            //movieRating.MovieId = movieId;
+            movieRating.MovieId = movieId;
             movieRating.MovieName = movieName;
             return View(movieRating);
         }
