@@ -35,6 +35,10 @@ namespace CoderGirl_MVCMovies.Controllers
         [HttpPost]
         public IActionResult Create(MovieRatingCreateViewModel model)
         {
+            //on the GET page, I created the new MovieRatingCreateViewModel that had a movieId and a movieName
+            //but no MovieRatingId and no MovieRating yet. Persist creates a new movieRating based on the
+            //values in the MovieRatingCreateViewModel, but still needs the movieratingId and movierating value
+            //persist directly sets the rating value, and the repository save function is setting a new Id for the movierating
             model.Persist();
             return RedirectToAction(controllerName: nameof(Movie), actionName: nameof(Index));
         }

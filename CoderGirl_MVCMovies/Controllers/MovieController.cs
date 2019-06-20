@@ -36,7 +36,8 @@ namespace CoderGirl_MVCMovies.Controllers
             }
             return View(models); */
 
-            var movies = MovieListItemViewModel.GetMovieList();
+            //var movies = MovieListItemViewModel.GetMovieList();
+            List<MovieListItemViewModel> movies = MovieListItemViewModel.GetMovieList();
             return View(movies);
         }
 
