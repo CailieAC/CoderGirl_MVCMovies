@@ -18,13 +18,10 @@ namespace CoderGirl_MVCMovies.ViewModels.Movies
 
         public static MovieCreateViewModel GetMovieCreateViewModel()
         {
-            //MovieCreateViewModel viewModel = new MovieCreateViewModel();
             List<Director> directors = RepositoryFactory.GetDirectorRepository()
                 .GetModels()
                 .Cast<Director>()
                 .ToList();
-            //viewModel.Directors = directors;
-            //return viewModel;
             return new MovieCreateViewModel(directors);
         }
 

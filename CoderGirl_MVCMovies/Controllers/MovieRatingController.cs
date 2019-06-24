@@ -12,7 +12,7 @@ namespace CoderGirl_MVCMovies.Controllers
     public class MovieRatingController : Controller
     {
         private IRepository ratingRepository = RepositoryFactory.GetMovieRatingRepository();
-        private IRepository movieRespository = RepositoryFactory.GetMovieRepository();
+        private IRepository movieRepository = RepositoryFactory.GetMovieRepository();
 
        public IActionResult Index()
         {
@@ -23,7 +23,7 @@ namespace CoderGirl_MVCMovies.Controllers
         [HttpGet]
         public IActionResult Create(int movieId)
         {
-            var movie = (Movie)movieRespository.GetById(movieId);
+            var movie = (Movie)movieRepository.GetById(movieId);
 
             string movieName = movie.Name;
             MovieRatingCreateViewModel movieRating = new MovieRatingCreateViewModel();
