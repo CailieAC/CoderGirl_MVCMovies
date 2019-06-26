@@ -16,51 +16,42 @@
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
-                Director
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Year)
             </th>
-            <th>Average Rating</th>
-            <th>Number of Ratings</th>
+            <th>
+                @Html.DisplayNameFor(model => model.DirectorName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AverageRating)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NumberOfRatings)
+            </th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr id="@Html.DisplayFor(modelItem => item.Id)">
+        <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Year)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DirectorName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Year)
-            </td>
-            @*@if (movie.Ratings.Count > 0)
-            {
-                <td>@movie.Ratings.Average()</td>
-            }
-            else
-            {
-                <td>none</td>
-            }
-            <td>@movie.Ratings.Count</td>*@
-            <td>
-                @*TODO: change below to averagerating *@
-                @Html.DisplayFor(modelItem => item.Year)
+                @Html.DisplayFor(modelItem => item.AverageRating)
             </td>
             <td>
-                @*TODO: change below to number of rating *@
-                @Html.DisplayFor(modelItem => item.Year)
+                @Html.DisplayFor(modelItem => item.NumberOfRatings)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })  |
-                @* make below link go to movierating controller*@
-                @Html.ActionLink("Rate Movie", "Create", "MovieRating", new { movieId = item.Id }, null)
-                @*<a asp-controller="MovieRating" asp-action="Create" asp-route-movieId="@Model.Id">Rate</a>*@
+                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+                @Html.ActionLink("Rate", "Details", "MovieRating", new { movieId = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
             </td>
         </tr>
 }

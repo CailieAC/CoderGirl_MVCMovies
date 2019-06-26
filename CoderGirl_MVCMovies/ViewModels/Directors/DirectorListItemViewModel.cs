@@ -1,41 +1,39 @@
-﻿using CoderGirl_MVCMovies.Data;
-using CoderGirl_MVCMovies.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using CoderGirl_MVCMovies.Data;
+using CoderGirl_MVCMovies.Models;
 
 namespace CoderGirl_MVCMovies.ViewModels.Directors
 {
     public class DirectorListItemViewModel
     {
-        public static List<DirectorListItemViewModel> GetDirectorList()
+        internal static List<DirectorListItemViewModel> GetDirectors(MoviesDbContext context)
         {
-            return RepositoryFactory.GetDirectorRepository()
+            return context.GetDirectorRepository()
                 .GetModels()
-                .Cast<Director>()
-                .Select(director => GetDirectorListItemFromDirector(director))
+                .Select(d => GetListItem(d))
                 .ToList();
         }
 
-        private static DirectorListItemViewModel GetDirectorListItemFromDirector(Director director)
+        private static DirectorListItemViewModel GetListItem(Director d)
         {
             return new DirectorListItemViewModel
             {
-                Id = director.Id,
-                FullName = director.FullName,
-                BirthDate = director.BirthDate.ToShortDateString(),
-                Nationality = director.Nationality
+                Id = d.Id,
+                FullName = d.FullName,
+                BirthDate = d.BirthDate,
+                Nationality = d.Nationality
             };
         }
 
         public int Id { get; set; }
-
-        [Display(Name="Name")]
         public string FullName { get; set; }
-        [Display(Name = "Birth Date")]
-        public string BirthDate { get; set; }
+        
+        [DataType(DataType.Date)]
+        public DateTime BirthDate { get; set; }
         public string Nationality { get; set; }
     }
 }

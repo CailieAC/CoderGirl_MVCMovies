@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CoderGirl_MVCMovies.Data;
-using CoderGirl_MVCMovies.Models;
-using CoderGirl_MVCMovies.ViewModels.Movie;
 using CoderGirl_MVCMovies.ViewModels.Movies;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,56 +10,32 @@ namespace CoderGirl_MVCMovies.Controllers
 {
     public class MovieController : Controller
     {
-        static IRepository movieRepository = RepositoryFactory.GetMovieRepository();
-        static IRepository directorRepository = RepositoryFactory.GetDirectorRepository();
+        private MoviesDbContext context;
+
+        public MovieController(MoviesDbContext context)
+        {
+            this.context = context;
+        }
 
         public IActionResult Index()
         {
-            //keep this as a list passing in, but pass in a list of like MovieListViewModel
-            //or MovieIndexViewModel. Should only include the info we are displaying in the table
-            //table has director name, but not id. 
-
-            /*List<Movie> movies = movieRepository.GetModels().Cast<Movie>().ToList();
-            List<MovieListItemViewModel> models = new List<MovieListItemViewModel>();
-
-            foreach (Movie movie in movies)
-            {
-                MovieListItemViewModel newModel = new MovieListItemViewModel();
-                newModel.Id = movie.Id;
-                newModel.Name = movie.Name;
-                newModel.DirectorName = movie.DirectorName;
-                newModel.Year = movie.Year;
-                newModel.Ratings = movie.Ratings;
-                models.Add(newModel);
-            }
-            return View(models); */
-
-            var movies = MovieListItemViewModel.GetMovieList();
+            List<MovieListItemViewModel> movies = MovieListItemViewModel.GetMovies(context);
             return View(movies);
         }
 
         [HttpGet]
         public IActionResult Create()
         {
-            MovieCreateViewModel viewModel = MovieCreateViewModel.GetMovieCreateViewModel();
-            return View(viewModel);
+            MovieCreateViewModel model = new MovieCreateViewModel(context);
+            return View(model);
         }
 
         [HttpPost]
         public IActionResult Create(MovieCreateViewModel model)
         {
-            if (String.IsNullOrWhiteSpace(model.Name))
+            if (!ModelState.IsValid)
             {
-                ModelState.AddModelError("Name", "Name must be included");
-            }
-            if(model.Year < 1888 || model.Year > DateTime.Now.Year)
-            {
-                ModelState.AddModelError("Year", "Not a valid year");
-            }
-
-            if(ModelState.ErrorCount > 0)
-            {
-                model.Directors = directorRepository.GetModels().Cast<Director>().ToList();
+                model.ResetDirectorList(context);
                 return View(model);
             }
  
@@ -72,32 +46,27 @@ namespace CoderGirl_MVCMovies.Controllers
 
         [HttpGet]
         public IActionResult Edit(int id)
-        {
-            //Movie movie = (Movie)movieRepository.GetById(id);
-            //return View(movie);
-
-            //TODO constructor or factory class will need to take an Id to find the proper movie
-            MovieEditViewModel model = MovieEditViewModel.GetModel(id);
-            return View(model);
+        {            
+            return View(new MovieEditViewModel(id, context));
         }
 
         [HttpPost]
-        public IActionResult Edit(int id, MovieEditViewModel model)
+        public IActionResult Edit(int id, MovieEditViewModel movie)
         {
-            //since id is not part of the edit form, it isn't included in the model, thus it needs to be set from the route value
-            //there are alternative patterns for doing this - for one, you could include the id in the form but make it hidden
-            //feel free to experiment - the tests wont' care as long as you preserve the id correctly in some manner
-            //movie.Id = id; 
-            //movieRepository.Update(movie);
-            model.Persist(id);
+            if (!ModelState.IsValid)
+            {
+                movie.ResetDirectorList(context);
+                return View(movie);
+            }
+
+            movie.Persist(id, context);
             return RedirectToAction(actionName: nameof(Index));
         }
 
         [HttpGet]
         public IActionResult Delete(int id)
         {
-            //Don't need a view model for this because there isn't an actual page view for Delete
-            movieRepository.Delete(id);
+            context.Remove(context.Movies.Find(id));
             return RedirectToAction(actionName: nameof(Index));
         }
     }

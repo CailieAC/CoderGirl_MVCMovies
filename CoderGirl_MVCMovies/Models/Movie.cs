@@ -9,9 +9,9 @@ namespace CoderGirl_MVCMovies.Models
     {
         public int Id { set; get; }
         public string Name { get; set; }
-        public string DirectorName { get; set; }
         public int Year { get; set; }
-        public List<int> Ratings { get; set; }
+        public virtual List<MovieRating> Ratings { get; set; }
+        public virtual Director Director { get; set; }
         public int DirectorId { get; set; }
 
         List<DirectorMovie> DirectorMovies { get; set; }

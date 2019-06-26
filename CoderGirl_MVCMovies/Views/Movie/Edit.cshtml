@@ -1,4 +1,4 @@
-﻿@model CoderGirl_MVCMovies.ViewModels.Movie.MovieEditViewModel
+﻿@model CoderGirl_MVCMovies.ViewModels.Movies.MovieEditViewModel
 
 @{
     ViewData["Title"] = "Edit";
@@ -43,3 +43,6 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

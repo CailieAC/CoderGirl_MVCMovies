@@ -12,6 +12,7 @@ namespace CoderGirl_MVCMovies.Models
         public string LastName { get; set; }
         public DateTime BirthDate { get; set; }
         public string Nationality { get; set; }
+        public virtual List<Movie> Movies { get; set; }
         List<DirectorMovie> DirectorMovies { get; set; }
         public string FullName
         {

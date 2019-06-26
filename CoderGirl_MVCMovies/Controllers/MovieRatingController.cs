@@ -3,61 +3,35 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CoderGirl_MVCMovies.Data;
-using CoderGirl_MVCMovies.Models;
-using CoderGirl_MVCMovies.ViewModels.MovieRating;
+using CoderGirl_MVCMovies.ViewModels.MovieRatings;
+using CoderGirl_MVCMovies.ViewsModels.MovieRatings;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CoderGirl_MVCMovies.Controllers
 {
     public class MovieRatingController : Controller
     {
-        private IRepository ratingRepository = RepositoryFactory.GetMovieRatingRepository();
-        private IRepository movieRespository = RepositoryFactory.GetMovieRepository();
+        private readonly MoviesDbContext context;
 
-       public IActionResult Index()
+        public MovieRatingController(MoviesDbContext context)
         {
-            var movieRatings = MovieRatingListItemViewModel.GetMovieRatingList();
-            return View(movieRatings);
+            this.context = context;
         }
 
         [HttpGet]
         public IActionResult Create(int movieId)
         {
-            var movie = (Movie)movieRespository.GetById(movieId);
-            string movieName = movie.Name;
-            MovieRatingCreateViewModel movieRating = new MovieRatingCreateViewModel();
-            //movieRating.MovieId = movieId;
-            movieRating.MovieName = movieName;
-            return View(movieRating);
-
+            return View();
         }
 
         [HttpPost]
-        public IActionResult Create(MovieRatingCreateViewModel model)
+        public IActionResult Create(int movieId, MovieRatingCreateViewModel model)
         {
-            model.Persist();
-            return RedirectToAction(controllerName: nameof(Movie), actionName: nameof(Index));
-        }
+            if (!ModelState.IsValid)
+                return View(model);
 
-        [HttpGet]
-        public IActionResult Edit(int id)
-        {
-            MovieRatingEditViewModel model = MovieRatingEditViewModel.GetModel(id);
-            return View(model);
-        }
-
-        [HttpPost]
-        public IActionResult Edit(int id, MovieRatingEditViewModel model)
-        {
-            model.Persist(id);
-            return RedirectToAction(actionName: nameof(Index));
-        }
-
-        [HttpGet]
-        public IActionResult Delete(int id)
-        {
-            ratingRepository.Delete(id);
-            return RedirectToAction(actionName: nameof(Index));
+            model.Persist(context);
+            return RedirectToAction(controllerName: "Movie", actionName: "Index");
         }
     }
 }

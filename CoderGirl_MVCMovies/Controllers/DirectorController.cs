@@ -11,11 +11,17 @@ namespace CoderGirl_MVCMovies.Controllers
 {
     public class DirectorController : Controller
     {
+        private readonly MoviesDbContext context;
+
+        public DirectorController(MoviesDbContext context)
+        {
+            this.context = context;
+        }
 
         [HttpGet]
         public IActionResult Index()
         {
-            var directors = DirectorListItemViewModel.GetDirectorList();
+            List<DirectorListItemViewModel> directors = DirectorListItemViewModel.GetDirectors(context);
             return View(directors);
         }
 
@@ -26,30 +32,9 @@ namespace CoderGirl_MVCMovies.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(DirectorCreateViewModel model)
+        public IActionResult Create(DirectorCreateViewModel director)
         {
-            model.Persist();
-            return RedirectToAction(actionName: nameof(Index));
-        }
-
-        [HttpGet]
-        public IActionResult Edit(int id)
-        {
-            DirectorEditViewModel model = DirectorEditViewModel.GetModel(id);
-            return View(model);
-        }
-
-        [HttpPost]
-        public IActionResult Edit(int id, DirectorEditViewModel model)
-        {
-            model.Persist(id);
-            return RedirectToAction(actionName: nameof(Index));
-        }
-
-        [HttpGet]
-        public IActionResult Delete(int id)
-        {
-            RepositoryFactory.GetDirectorRepository().Delete(id);
+            director.Persist(context);
             return RedirectToAction(actionName: nameof(Index));
         }
     }
