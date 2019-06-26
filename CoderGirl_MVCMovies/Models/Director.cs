@@ -12,6 +12,7 @@ namespace CoderGirl_MVCMovies.Models
         public string LastName { get; set; }
         public DateTime BirthDate { get; set; }
         public string Nationality { get; set; }
+        List<Movie> Movies { get; set; }
         public string FullName
         {
             get { return $"{LastName}, {FirstName}"; }
