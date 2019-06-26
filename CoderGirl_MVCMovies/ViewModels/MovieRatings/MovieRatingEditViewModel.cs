@@ -17,10 +17,10 @@ namespace CoderGirl_MVCMovies.ViewModels.MovieRatings
         public int Rating { get; set; }
         public SelectList Ratings { get { return GetRatings(); } }
 
-        public MovieRatingEditViewModel(int id, RepositoryFactory repositoryFactory)
+        public MovieRatingEditViewModel(int id, MoviesDbContext context)
         {
-            var rating = repositoryFactory.GetMovieRatingRepository().GetById(id);
-            var movie = repositoryFactory.GetMovieRepository().GetById(rating.MovieId);
+            var rating = context.GetMovieRatingRepository().GetById(id);
+            var movie = context.GetMovieRepository().GetById(rating.MovieId);
             this.Id = rating.Id;
             this.MovieId = rating.MovieId;
             this.MovieName = movie.Name;

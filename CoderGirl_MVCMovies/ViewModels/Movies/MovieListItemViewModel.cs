@@ -11,7 +11,7 @@ namespace CoderGirl_MVCMovies.ViewModels.Movies
 {
     public class MovieListItemViewModel
     {
-        public static List<MovieListItemViewModel> GetMovies(RepositoryFactory factory)
+        public static List<MovieListItemViewModel> GetMovies(MoviesDbContext factory)
         {
             return factory.GetMovieRepository()
                 .GetModels()

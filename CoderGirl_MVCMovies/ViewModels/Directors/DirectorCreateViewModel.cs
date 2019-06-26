@@ -17,7 +17,7 @@ namespace CoderGirl_MVCMovies.ViewModels.Directors
         public DateTime BirthDate { get; set; }
         public string Nationality { get; set; }
 
-        public void Persist(RepositoryFactory repositoryFactory)
+        public void Persist(MoviesDbContext context)
         {
             Director director = new Director
             {
@@ -26,7 +26,7 @@ namespace CoderGirl_MVCMovies.ViewModels.Directors
                 BirthDate = this.BirthDate,
                 Nationality = this.Nationality
             };
-            repositoryFactory.GetDirectorRepository().Save(director);
+            context.GetDirectorRepository().Save(director);
         }
     }
 }

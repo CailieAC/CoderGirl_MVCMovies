@@ -11,6 +11,8 @@ namespace CoderGirl_MVCMovies.ViewModels.Movies
 {
     public class MovieCreateViewModel
     {
+        private readonly RepositoryFactory repositoryFactory;
+
         public string Name { get; set; }
         public int DirectorId { get; set; }
         public IEnumerable<SelectListItem> Directors { get; set; }

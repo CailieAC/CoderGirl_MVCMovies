@@ -10,23 +10,23 @@ namespace CoderGirl_MVCMovies.Controllers
 {
     public class MovieController : Controller
     {
-        private RepositoryFactory repositoryFactory;
+        private MoviesDbContext context;
 
-        public MovieController(RepositoryFactory repositoryFactory)
+        public MovieController(MoviesDbContext context)
         {
-            this.repositoryFactory = repositoryFactory;
+            this.context = context;
         }
 
         public IActionResult Index()
         {
-            List<MovieListItemViewModel> movies = MovieListItemViewModel.GetMovies(repositoryFactory);
+            List<MovieListItemViewModel> movies = MovieListItemViewModel.GetMovies(context);
             return View(movies);
         }
 
         [HttpGet]
         public IActionResult Create()
         {
-            MovieCreateViewModel model = new MovieCreateViewModel(repositoryFactory);
+            MovieCreateViewModel model = new MovieCreateViewModel(context);
             return View(model);
         }
 
@@ -34,32 +34,38 @@ namespace CoderGirl_MVCMovies.Controllers
         public IActionResult Create(MovieCreateViewModel model)
         {
             if (!ModelState.IsValid)
+            {
+                model.ResetDirectorList(context);
                 return View(model);
+            }
 
-            model.Persist(repositoryFactory);
+            model.Persist(context);
             return RedirectToAction(actionName: nameof(Index));
         }
 
         [HttpGet]
         public IActionResult Edit(int id)
         {            
-            return View(new MovieEditViewModel(id));
+            return View(new MovieEditViewModel(id, context));
         }
 
         [HttpPost]
         public IActionResult Edit(int id, MovieEditViewModel movie)
         {
             if (!ModelState.IsValid)
+            {
+                movie.ResetDirectorList(context);
                 return View(movie);
+            }
 
-            movie.Persist(id, repositoryFactory);
+            movie.Persist(id, context);
             return RedirectToAction(actionName: nameof(Index));
         }
 
         [HttpGet]
         public IActionResult Delete(int id)
         {
-            repositoryFactory.GetMovieRepository().Delete(id);
+            context.Remove(context.Movies.Find(id));
             return RedirectToAction(actionName: nameof(Index));
         }
     }
