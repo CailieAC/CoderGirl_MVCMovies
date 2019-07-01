@@ -12,7 +12,5 @@ namespace CoderGirl_MVCMovies.Models
         public int DirectorId { get; set; }
         public Director Director { get; set; }
         public Movie Movie { get; set; }
-
-
     }
 }

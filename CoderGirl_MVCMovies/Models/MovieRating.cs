@@ -10,5 +10,6 @@ namespace CoderGirl_MVCMovies.Models
         public int Id { get; set; }
         public int Rating { get; set; }
         public int MovieId { get; set; }
+        public Movie Movie { get; set; }
     }
 }

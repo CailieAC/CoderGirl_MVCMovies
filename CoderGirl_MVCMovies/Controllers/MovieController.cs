@@ -17,6 +17,7 @@ namespace CoderGirl_MVCMovies.Controllers
             this.context = context;
         }
 
+        
         public IActionResult Index()
         {
             List<MovieListItemViewModel> movies = MovieListItemViewModel.GetMovies(context);
@@ -29,7 +30,7 @@ namespace CoderGirl_MVCMovies.Controllers
             MovieCreateViewModel model = new MovieCreateViewModel(context);
             return View(model);
         }
-
+                
         [HttpPost]
         public IActionResult Create(MovieCreateViewModel model)
         {
@@ -44,7 +45,7 @@ namespace CoderGirl_MVCMovies.Controllers
         }
 
         [HttpGet]
-        public IActionResult Edit(int id)
+        public IActionResult Edit(int id, MoviesDbContext context)
         {            
             return View(new MovieEditViewModel(id, context));
         }

@@ -27,6 +27,7 @@ namespace CoderGirl_MVCMovies.ViewModels.Directors
                 Nationality = this.Nationality
             };
             context.Add(director);
+            context.SaveChanges();
         }
     }
 }

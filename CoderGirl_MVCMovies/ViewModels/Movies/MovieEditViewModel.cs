@@ -12,8 +12,8 @@ namespace CoderGirl_MVCMovies.ViewModels.Movies
     public class MovieEditViewModel
     {
         public string Name { get; set; }
-        public int DirectorId { get; set; }
-        public SelectList Directors { get; set; }
+        public List<int> DirectorIds { get; set; }
+        public List<Director> Directors { get; set; }
         public int Year { get; set; }
 
         public MovieEditViewModel() { }
@@ -21,10 +21,10 @@ namespace CoderGirl_MVCMovies.ViewModels.Movies
         public MovieEditViewModel(int id, MoviesDbContext context)
         {
             Movie movie=context.Movies.Find(id);
-            this.DirectorId = movie.DirectorId;
+            this.DirectorIds = movie.DirectorMovies.Select(dm => dm.DirectorId).ToList();
             this.Year = movie.Year;
             this.Name = movie.Name;
-            this.Directors = GetDirectorList(context);
+            this.Directors = context.Directors.ToList();
         }
 
         public void Persist(int id, MoviesDbContext context)
@@ -33,21 +33,22 @@ namespace CoderGirl_MVCMovies.ViewModels.Movies
             {
                 Id = id,
                 Name = this.Name,
-                DirectorId = this.DirectorId,
                 Year = this.Year
             };
             context.Add(movie);
+            List<DirectorMovie> directorMovies = CreateManyToManyRelationships(movie.Id);
+            movie.DirectorMovies = directorMovies;
             context.SaveChanges();
         }
 
-        private SelectList GetDirectorList(MoviesDbContext context)
+        private List<DirectorMovie> CreateManyToManyRelationships(int movieId)
         {
-            return new SelectList(context.Directors, "Id", "FullName", this.DirectorId);
+            return DirectorIds.Select(dirId => new DirectorMovie { MovieId = movieId, DirectorId = dirId }).ToList();
         }
 
         internal void ResetDirectorList(MoviesDbContext context)
         {
-            this.Directors = GetDirectorList(context);
+            this.Directors = context.Directors.ToList();
         }
     }
 }

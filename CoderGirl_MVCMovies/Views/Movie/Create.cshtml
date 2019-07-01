@@ -18,9 +18,12 @@
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DirectorId" class="control-label"></label>
-                <select asp-for="DirectorId" class="form-control" asp-items="Model.Directors" ></select>
-                <span asp-validation-for="DirectorId" class="text-danger"></span>
+                <label asp-for="DirectorIds" class="control-label"></label>
+                @foreach(var director in Model.Directors)
+                {
+                    <label>@director.FullName</label>
+                    <input type="checkbox" name="DirectorIds" value="@director.Id"/>
+                }
             </div>
             <div class="form-group">
                 <label asp-for="Year" class="control-label"></label>

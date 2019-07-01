@@ -12,8 +12,7 @@ namespace CoderGirl_MVCMovies.ViewModels.Directors
     {
         internal static List<DirectorListItemViewModel> GetDirectors(MoviesDbContext context)
         {
-            return context.GetDirectorRepository()
-                .GetModels()
+            return context.Directors
                 .Select(d => GetListItem(d))
                 .ToList();
         }

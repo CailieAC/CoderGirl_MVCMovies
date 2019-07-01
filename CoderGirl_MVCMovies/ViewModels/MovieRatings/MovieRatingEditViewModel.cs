@@ -1,5 +1,7 @@
 ﻿using CoderGirl_MVCMovies.Data;
+using CoderGirl_MVCMovies.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,11 +21,12 @@ namespace CoderGirl_MVCMovies.ViewModels.MovieRatings
 
         public MovieRatingEditViewModel(int id, MoviesDbContext context)
         {
-            var rating = context.GetMovieRatingRepository().GetById(id);
-            var movie = context.GetMovieRepository().GetById(rating.MovieId);
+            MovieRating rating = context.MovieRatings
+                .Include(m => m.Movie)
+                .SingleOrDefault(m => m.Id == id);
             this.Id = rating.Id;
             this.MovieId = rating.MovieId;
-            this.MovieName = movie.Name;
+            this.MovieName = rating.Movie.Name;
             this.Rating = rating.Rating;
         }
 
