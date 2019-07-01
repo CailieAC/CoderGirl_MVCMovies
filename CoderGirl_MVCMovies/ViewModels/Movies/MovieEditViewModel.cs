@@ -23,7 +23,7 @@ namespace CoderGirl_MVCMovies.ViewModels.Movies
             this.Directors = GetDirectorList(repositoryFactory);
         }
 
-        public MovieEditViewModel(int id, RepositoryFactory repositoryFactory)
+        public MovieEditViewModel(int id)
         {
             Movie movie=repositoryFactory.GetMovieRepository().GetById(id);
             //this.DirectorId = movie.Director.Id;
